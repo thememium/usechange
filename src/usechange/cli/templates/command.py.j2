@@ -1,0 +1,23 @@
+"""{{ class_name }} - CLI command."""
+
+from __future__ import annotations
+
+import typer
+from rich.console import Console
+
+from usechange.cli.core.base_command import BaseCommand
+
+console = Console()
+
+
+class {{ class_name }}(BaseCommand):
+    def signature(self) -> str:
+        return "{{ command_name }}"
+
+    def description(self) -> str:
+        return "Description for {{ command_name }} command"
+
+    def handle(
+        self, name: str = typer.Argument(..., help="An example argument")
+    ) -> None:
+        console.print(f"Executing {{ command_name }} with argument: {name}")

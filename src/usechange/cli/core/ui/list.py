@@ -16,6 +16,7 @@ if TYPE_CHECKING:
 
 console = Console()
 
+SPACER_LENGTH = 18
 
 def list_commands(app: typer.Typer, prefix_filter: str | None = None) -> None:
     """List all available commands with optional filtering.
@@ -43,7 +44,7 @@ def list_commands(app: typer.Typer, prefix_filter: str | None = None) -> None:
     console.print(f"[bold {COLOR.SECONDARY}]Options:")
 
     help_flags = "--help, -h"
-    help_padding = " " * (longest_name_length - len(help_flags) + 12)
+    help_padding = " " * (longest_name_length - len(help_flags) + SPACER_LENGTH)
     console.print(
         f"  [{COLOR.OPTION}]{help_flags}[/{COLOR.OPTION}]{help_padding}Show this message and exit."
     )
@@ -54,7 +55,7 @@ def list_commands(app: typer.Typer, prefix_filter: str | None = None) -> None:
             if "--help" in flags:
                 continue
             description = getattr(param, "help", "") or ""
-            padding = " " * (longest_name_length - len(flags) + 12)
+            padding = " " * (longest_name_length - len(flags) + SPACER_LENGTH)
             console.print(
                 f"  [{COLOR.OPTION}]{flags}[/{COLOR.OPTION}]{padding}{description}"
             )
@@ -102,7 +103,7 @@ def list_commands(app: typer.Typer, prefix_filter: str | None = None) -> None:
 
     def print_command(cmd: dict[str, str]) -> None:
         """Print a single command with proper formatting."""
-        padding = " " * (longest_name_length - len(cmd["name"]) + 12)
+        padding = " " * (longest_name_length - len(cmd["name"]) + SPACER_LENGTH)
         console.print(
             f"  [{COLOR.COMMAND}]{cmd['name']}[/{COLOR.COMMAND}]{padding}{cmd['help']}"
         )
@@ -152,7 +153,7 @@ def list_group_commands(group_app: typer.Typer, group_name: str) -> None:
 
     console.print(f"[bold {COLOR.SECONDARY}]Options:")
     help_flags = "--help, -h"
-    help_padding = " " * (longest_name_length - len(help_flags) + 12)
+    help_padding = " " * (longest_name_length - len(help_flags) + SPACER_LENGTH)
     console.print(
         f"  [{COLOR.OPTION}]{help_flags}[/{COLOR.OPTION}]{help_padding}Show this message and exit."
     )
@@ -172,7 +173,7 @@ def list_group_commands(group_app: typer.Typer, group_name: str) -> None:
     console.print(f"[bold {COLOR.SECONDARY}]Available commands:")
 
     for cmd in commands:
-        padding = " " * (longest_name_length - len(cmd["name"]) + 12)
+        padding = " " * (longest_name_length - len(cmd["name"]) + SPACER_LENGTH)
         console.print(
             f"  [{COLOR.COMMAND}]{cmd['name']}[/{COLOR.COMMAND}]{padding}{cmd['help']}"
         )

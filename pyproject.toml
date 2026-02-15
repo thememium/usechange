@@ -1,15 +1,24 @@
 [project]
 name = "usechange"
 version = "0.1.0"
-description = "Add your description here"
+description = "Generate Beautiful Changelogs using Conventional Commits"
 readme = "README.md"
 authors = [{ name = "Edward Boswell", email = "thememium@gmail.com" }]
 requires-python = ">=3.10"
-dependencies = []
+dependencies = [
+  "case-converter>=1.2.0",
+  "click>=8.3.1",
+  "fzf-bin>=0.67.0",
+  "jinja2>=3.1.6",
+  "pyyaml>=6.0.3",
+  "rich>=14.3.2",
+  "simple-term-menu>=1.6.6",
+  "typer>=0.23.1",
+]
 
 [project.scripts]
-usechange = "usechange:main"
-change = "usechange:main"
+usechange = "usechange:run_app"
+change = "usechange:run_app"
 
 [build-system]
 requires = ["uv_build>=0.10.2,<0.11.0"]

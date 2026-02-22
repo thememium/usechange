@@ -30,7 +30,7 @@ lint = "uv run ruff check ."
 format = "uv run ruff format ."
 deptry = "uv deptry ."
 typecheck = "uv run ty check"
-release = "bash scripts/release.sh"
+release = "uv run usechange release"
 
 
 [tool.setuptools.packages.find]

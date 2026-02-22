@@ -58,6 +58,7 @@ class ReleaseCommand(BaseCommand):
                 preminor=None,
                 prepatch=None,
                 prerelease=None,
+                update_versions=False,
             )
         )
 

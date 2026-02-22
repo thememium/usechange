@@ -53,6 +53,7 @@ class ChangelogOptions:
     preminor: str | None
     prepatch: str | None
     prerelease: str | None
+    update_versions: bool = True
 
 
 @dataclass(frozen=True)
@@ -120,7 +121,9 @@ def run_changelog(options: ChangelogOptions) -> ChangelogResult:
         target_path.write_text(content)
         wrote_file = True
 
-    if options.bump or options.release or options.release_version:
+    if (
+        options.bump or options.release or options.release_version
+    ) and options.update_versions:
         _update_versions(directory, version)
 
     message = f"Changelog generated for {version}."

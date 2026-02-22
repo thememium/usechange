@@ -1,5 +1,26 @@
 # Changelog
 
+## v0.1.5 (2026-02-22)
+
+### 🚀 Enhancements
+
+- **changelog**: add `update_versions` flag to optionally skip version bump ([5563a40](https://github.com/thememium/usechange/commit/5563a40fa91e59de597008c4b547e18e6ac2006c))
+
+### 💅 Refactors
+
+- **cli**: rename GhReleaseCommand to GithubReleaseCommand and add alias ([a504f68](https://github.com/thememium/usechange/commit/a504f68ffdf7567a46cdf2087296240bf7346a50))
+
+### 🏡 Chore
+
+- **deps**: bump tomli to >=2.4.0 and usecli to >=0.1.32 ([b4185f4](https://github.com/thememium/usechange/commit/b4185f4b26df7582e21ab6c53873aa73db227be0))
+- **pyproject**: hide make command by default ([caa8b82](https://github.com/thememium/usechange/commit/caa8b82f4fb895643ce658e1b205629b187be04b))
+
+### Contributors
+
+- Edward Boswell <thememium@gmail.com>
+
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.4...HEAD)
+
 ## v0.1.4 (2026-02-22)
 
 ### 🩹 Fixes

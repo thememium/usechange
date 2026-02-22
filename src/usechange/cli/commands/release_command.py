@@ -23,7 +23,7 @@ class ReleaseCommand(BaseCommand):
         _ensure_src_on_path()
         from usechange.changelog.cli.default import ChangelogOptions, run_changelog
 
-        if not yes and not Confirm.ask("Continue with release?"):
+        if not yes and not Confirm.ask("Continue with release?", default=False):
             console.print("Release cancelled.")
             return
 

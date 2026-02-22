@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import re
 from dataclasses import dataclass
+import json
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -118,6 +119,9 @@ def run_changelog(options: ChangelogOptions) -> ChangelogResult:
         target_path = Path(directory) / output_path
         target_path.write_text(content)
         wrote_file = True
+
+    if options.bump or options.release or options.release_version:
+        _update_versions(directory, version)
 
     message = f"Changelog generated for {version}."
     return ChangelogResult(
@@ -385,3 +389,31 @@ def _resolve_config_from_options(
     if options.output:
         overrides["output"] = options.output
     return resolve_config({**config.__dict__, **overrides})
+
+
+def _update_versions(directory: str, version: str) -> None:
+    _update_package_json_version(directory, version)
+    _update_pyproject_version(directory, version)
+
+
+def _update_package_json_version(directory: str, version: str) -> None:
+    path = Path(directory) / "package.json"
+    if not path.exists():
+        return
+    data = json.loads(path.read_text())
+    data["version"] = version
+    path.write_text(json.dumps(data, indent=2) + "\n")
+
+
+def _update_pyproject_version(directory: str, version: str) -> None:
+    path = Path(directory) / "pyproject.toml"
+    if not path.exists():
+        return
+    content = path.read_text()
+    updated = re.sub(
+        r"^version\s*=\s*\"[^\"]+\"",
+        f'version = "{version}"',
+        content,
+        flags=re.MULTILINE,
+    )
+    path.write_text(updated)

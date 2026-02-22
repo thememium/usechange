@@ -66,6 +66,12 @@ class ReleaseCommand(BaseCommand):
         if not version:
             raise RuntimeError("Unable to determine release version")
 
+        tag_name = f"v{version}"
+        if _tag_exists(resolved_dir, tag_name):
+            raise RuntimeError(
+                f"Tag {tag_name} already exists. Bump the version or delete the tag."
+            )
+
         _run(resolved_dir, ["uv", "version", version])
         _run(resolved_dir, ["uv", "sync"])
         _run(resolved_dir, ["uv", "lock"])
@@ -81,7 +87,6 @@ class ReleaseCommand(BaseCommand):
             ],
         )
         _run(resolved_dir, ["git", "commit", "-m", "chore(uv): update version"])
-        tag_name = f"v{version}"
         _run(resolved_dir, ["git", "tag", tag_name])
         _run(resolved_dir, ["git", "push"])
         _run(resolved_dir, ["git", "push", "origin", tag_name])
@@ -156,6 +161,17 @@ def _extract_release_notes(directory: str, tag_name: str) -> str:
 def _gh_release_exists(directory: str, tag_name: str) -> bool:
     result = subprocess.run(
         ["gh", "release", "view", tag_name],
+        cwd=directory,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    return result.returncode == 0
+
+
+def _tag_exists(directory: str, tag_name: str) -> bool:
+    result = subprocess.run(
+        ["git", "rev-parse", "--quiet", "--verify", f"refs/tags/{tag_name}"],
         cwd=directory,
         check=False,
         capture_output=True,

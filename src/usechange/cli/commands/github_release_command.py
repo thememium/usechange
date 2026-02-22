@@ -15,6 +15,9 @@ class GithubReleaseCommand(BaseCommand):
     def description(self) -> str:
         return "Sync GitHub releases from CHANGELOG.md"
 
+    def aliases(self) -> list[str]:
+        return ["gh release"]
+
     def handle(
         self,
         versions: list[str] | None = Argument(None, help="Versions or 'all' to sync"),

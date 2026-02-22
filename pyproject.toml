@@ -5,10 +5,7 @@ description = "Generate Beautiful Changelogs using Conventional Commits"
 readme = "README.md"
 authors = [{ name = "Edward Boswell", email = "thememium@gmail.com" }]
 requires-python = ">=3.10"
-dependencies = [
-    "usecli>=0.1.30",
-    "tomli>=2.0.1",
-]
+dependencies = ["usecli>=0.1.30", "tomli>=2.0.1"]
 
 [dependency-groups]
 dev = [
@@ -51,7 +48,7 @@ themes_dir = "src/usechange/cli/themes"
 theme = "default"
 hide_init = true
 hide_inspire = true
-hide_make_command = false
+hide_make_command = true
 hide_make_theme = true
 
 [project.scripts]

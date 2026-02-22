@@ -553,6 +553,7 @@ name = "usechange"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
+    { name = "tomli" },
     { name = "usecli" },
 ]
 
@@ -567,7 +568,10 @@ dev = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "usecli", specifier = ">=0.1.30" }]
+requires-dist = [
+    { name = "tomli", specifier = ">=2.0.1" },
+    { name = "usecli", specifier = ">=0.1.30" },
+]
 
 [package.metadata.requires-dev]
 dev = [

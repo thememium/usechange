@@ -2,10 +2,11 @@ from __future__ import annotations
 
 import json
 import os
-import tomllib
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Literal
+
+import tomli as tomllib
 
 SemverBump = Literal[
     "major",

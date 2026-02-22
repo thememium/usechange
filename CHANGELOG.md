@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.1.4 (2026-02-22)
+
+### 🩹 Fixes
+
+- **release_command**: set Confirm.ask default to false to require explicit confirmation ([8f9d2a4](https://github.com/thememium/usechange/commit/8f9d2a49dd7bcbad9962552e2617b29b5223b93d))
+
+### 💅 Refactors
+
+- **release**: drop package.json handling and related code ([b4d06b9](https://github.com/thememium/usechange/commit/b4d06b9491b7e84094eb317204396eeb6ca8b75c))
+
+### Contributors
+
+- Edward Boswell <thememium@gmail.com>
+
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.3...HEAD)
+
 ## v0.1.3 (2026-02-22)
 
 ### 🚀 Enhancements

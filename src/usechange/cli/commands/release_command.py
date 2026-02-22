@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+import json
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
 from usecli import BaseCommand, Confirm, Option, console
@@ -21,10 +23,6 @@ class ReleaseCommand(BaseCommand):
     ) -> None:
         _ensure_src_on_path()
         from usechange.changelog.cli.default import ChangelogOptions, run_changelog
-        from usechange.changelog.cli.gh_release import (
-            GhReleaseOptions,
-            run_github_release,
-        )
 
         if not yes and not Confirm.ask("Continue with release?"):
             console.print("Release cancelled.")
@@ -64,7 +62,7 @@ class ReleaseCommand(BaseCommand):
             )
         )
 
-        version = changelog_result.new_version
+        version = _read_package_version(resolved_dir) or changelog_result.new_version
         if not version:
             raise RuntimeError("Unable to determine release version")
 
@@ -72,18 +70,48 @@ class ReleaseCommand(BaseCommand):
         _run(resolved_dir, ["uv", "sync"])
         _run(resolved_dir, ["uv", "lock"])
 
-        _run(resolved_dir, ["git", "add", "CHANGELOG.md", "pyproject.toml", "uv.lock"])
+        _run(
+            resolved_dir,
+            [
+                "git",
+                "add",
+                "CHANGELOG.md",
+                "package.json",
+                "pyproject.toml",
+                "uv.lock",
+            ],
+        )
         _run(resolved_dir, ["git", "commit", "-m", "chore(uv): update version"])
         tag_name = f"v{version}"
-        if not _tag_exists(resolved_dir, tag_name):
-            _run(resolved_dir, ["git", "tag", tag_name])
+        _run(resolved_dir, ["git", "tag", tag_name])
         _run(resolved_dir, ["git", "push"])
-        if not _tag_exists(resolved_dir, tag_name):
-            _run(resolved_dir, ["git", "push", "origin", tag_name])
+        _run(resolved_dir, ["git", "push", "origin", tag_name])
 
-        run_github_release(
-            GhReleaseOptions(versions=[version], directory=resolved_dir, token=None)
-        )
+        notes = _extract_release_notes(resolved_dir, tag_name)
+        with tempfile.NamedTemporaryFile(mode="w", delete=False) as handle:
+            handle.write(notes)
+            notes_file = handle.name
+
+        target_sha = _run_capture(resolved_dir, ["git", "rev-parse", tag_name])
+        if _gh_release_exists(resolved_dir, tag_name):
+            _run(
+                resolved_dir,
+                ["gh", "release", "edit", tag_name, "--notes-file", notes_file],
+            )
+        else:
+            _run(
+                resolved_dir,
+                [
+                    "gh",
+                    "release",
+                    "create",
+                    tag_name,
+                    "--target",
+                    target_sha,
+                    "--notes-file",
+                    notes_file,
+                ],
+            )
         console.print(f"Release {version} completed.")
 
 
@@ -93,9 +121,53 @@ def _run(directory: str, args: list[str]) -> None:
         raise RuntimeError(f"Command failed: {' '.join(args)}")
 
 
-def _tag_exists(directory: str, tag: str) -> bool:
+def _run_capture(directory: str, args: list[str]) -> str:
     result = subprocess.run(
-        ["git", "rev-parse", "-q", "--verify", f"refs/tags/{tag}"],
+        args,
+        cwd=directory,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode != 0:
+        raise RuntimeError(f"Command failed: {' '.join(args)}")
+    return result.stdout.strip()
+
+
+def _read_package_version(directory: str) -> str | None:
+    path = Path(directory) / "package.json"
+    if not path.exists():
+        return None
+    data = json.loads(path.read_text())
+    version = data.get("version")
+    if not isinstance(version, str):
+        return None
+    return version
+
+
+def _extract_release_notes(directory: str, tag_name: str) -> str:
+    changelog = Path(directory) / "CHANGELOG.md"
+    lines = changelog.read_text().splitlines()
+    heading = f"## {tag_name}"
+    start = None
+    for idx, line in enumerate(lines):
+        if line.strip() == heading:
+            start = idx
+            break
+    if start is None:
+        raise RuntimeError(f"Missing changelog entry for {heading}")
+    end = None
+    for idx in range(start + 1, len(lines)):
+        if lines[idx].startswith("## "):
+            end = idx
+            break
+    section = lines[start:end]
+    return "\n".join(section).rstrip()
+
+
+def _gh_release_exists(directory: str, tag_name: str) -> bool:
+    result = subprocess.run(
+        ["gh", "release", "view", tag_name],
         cwd=directory,
         check=False,
         capture_output=True,

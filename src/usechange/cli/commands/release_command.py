@@ -151,7 +151,7 @@ def _extract_release_notes(directory: str, tag_name: str) -> str:
     heading = f"## {tag_name}"
     start = None
     for idx, line in enumerate(lines):
-        if line.strip() == heading:
+        if line.strip().startswith(heading):
             start = idx
             break
     if start is None:

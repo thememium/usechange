@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import json
 import subprocess
 import sys
 import tempfile
@@ -62,7 +61,7 @@ class ReleaseCommand(BaseCommand):
             )
         )
 
-        version = _read_package_version(resolved_dir) or changelog_result.new_version
+        version = changelog_result.new_version
         if not version:
             raise RuntimeError("Unable to determine release version")
 
@@ -76,7 +75,6 @@ class ReleaseCommand(BaseCommand):
                 "git",
                 "add",
                 "CHANGELOG.md",
-                "package.json",
                 "pyproject.toml",
                 "uv.lock",
             ],
@@ -132,17 +130,6 @@ def _run_capture(directory: str, args: list[str]) -> str:
     if result.returncode != 0:
         raise RuntimeError(f"Command failed: {' '.join(args)}")
     return result.stdout.strip()
-
-
-def _read_package_version(directory: str) -> str | None:
-    path = Path(directory) / "package.json"
-    if not path.exists():
-        return None
-    data = json.loads(path.read_text())
-    version = data.get("version")
-    if not isinstance(version, str):
-        return None
-    return version
 
 
 def _extract_release_notes(directory: str, tag_name: str) -> str:

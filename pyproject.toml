@@ -1,6 +1,6 @@
 [project]
 name = "usechange"
-version = "0.1.5"
+version = "0.1.6"
 description = "Generate Beautiful Changelogs using Conventional Commits"
 readme = "README.md"
 authors = [{ name = "Edward Boswell", email = "thememium@gmail.com" }]

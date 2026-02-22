@@ -1,5 +1,22 @@
 # Changelog
 
+## v0.1.6 (2026-02-22)
+
+### 🚀 Enhancements
+
+- **cli**: add tag existence check to release command ([c6e1863](https://github.com/thememium/usechange/commit/c6e1863f5a2eddeb9fa257d8dc6e0643e6e3c971))
+
+### 🏡 Chore
+
+- **pyproject**: update release script to use `uv run` instead of a bash command ([efa7dfb](https://github.com/thememium/usechange/commit/efa7dfb5b6e44de71d42cedb908a6df0a6788190))
+- **scripts**: delete legacy release.sh script ([28727a4](https://github.com/thememium/usechange/commit/28727a464ca724a90c1eb091981d12a0954b3610))
+
+### Contributors
+
+- Edward Boswell <thememium@gmail.com>
+
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.5...HEAD)
+
 ## v0.1.5 (2026-02-22)
 
 ### 🚀 Enhancements

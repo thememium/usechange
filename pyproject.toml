@@ -5,7 +5,7 @@ description = "Generate Beautiful Changelogs using Conventional Commits"
 readme = "README.md"
 authors = [{ name = "Edward Boswell", email = "thememium@gmail.com" }]
 requires-python = ">=3.10"
-dependencies = ["usecli>=0.1.30", "tomli>=2.0.1"]
+dependencies = ["tomli>=2.4.0", "usecli>=0.1.32"]
 
 [dependency-groups]
 dev = [

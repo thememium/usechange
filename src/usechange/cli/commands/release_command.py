@@ -74,9 +74,12 @@ class ReleaseCommand(BaseCommand):
 
         _run(resolved_dir, ["git", "add", "CHANGELOG.md", "pyproject.toml", "uv.lock"])
         _run(resolved_dir, ["git", "commit", "-m", "chore(uv): update version"])
-        _run(resolved_dir, ["git", "tag", f"v{version}"])
+        tag_name = f"v{version}"
+        if not _tag_exists(resolved_dir, tag_name):
+            _run(resolved_dir, ["git", "tag", tag_name])
         _run(resolved_dir, ["git", "push"])
-        _run(resolved_dir, ["git", "push", "origin", f"v{version}"])
+        if not _tag_exists(resolved_dir, tag_name):
+            _run(resolved_dir, ["git", "push", "origin", tag_name])
 
         run_github_release(
             GhReleaseOptions(versions=[version], directory=resolved_dir, token=None)
@@ -88,6 +91,17 @@ def _run(directory: str, args: list[str]) -> None:
     result = subprocess.run(args, cwd=directory, check=False)
     if result.returncode != 0:
         raise RuntimeError(f"Command failed: {' '.join(args)}")
+
+
+def _tag_exists(directory: str, tag: str) -> bool:
+    result = subprocess.run(
+        ["git", "rev-parse", "-q", "--verify", f"refs/tags/{tag}"],
+        cwd=directory,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    return result.returncode == 0
 
 
 def _ensure_src_on_path() -> None:

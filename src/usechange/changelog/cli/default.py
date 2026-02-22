@@ -1,8 +1,8 @@
 from __future__ import annotations
 
+import json
 import re
 from dataclasses import dataclass
-import json
 from datetime import datetime, timezone
 from pathlib import Path
 

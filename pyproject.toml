@@ -5,34 +5,20 @@ description = "Generate Beautiful Changelogs using Conventional Commits"
 readme = "README.md"
 authors = [{ name = "Edward Boswell", email = "thememium@gmail.com" }]
 requires-python = ">=3.10"
-dependencies = [
-  "case-converter>=1.2.0",
-  "click>=8.3.1",
-  "fzf-bin>=0.67.0",
-  "jinja2>=3.1.6",
-  "pyyaml>=6.0.3",
-  "rich>=14.3.2",
-  "simple-term-menu>=1.6.6",
-  "typer>=0.23.1",
-]
-
-[project.scripts]
-usechange = "usechange:run_app"
-change = "usechange:run_app"
-
-[build-system]
-requires = ["uv_build>=0.10.2,<0.11.0"]
-build-backend = "uv_build"
+dependencies = ["usecli>=0.1.30"]
 
 [dependency-groups]
 dev = [
   "deptry>=0.24.0",
-  "isort>=7.0.0",
-  "poethepoet>=0.41.0",
+  "isort>=8.0.0",
+  "poethepoet>=0.42.0",
   "pytest>=9.0.2",
-  "ruff>=0.15.1",
-  "ty>=0.0.17",
+  "ruff>=0.15.2",
+  "ty>=0.0.18",
 ]
+
+[tool.deptry]
+known_first_party = ["usechange"]
 
 [tool.poe.tasks]
 dev = "uv run usechange"
@@ -45,3 +31,30 @@ format = "uv run ruff format ."
 deptry = "uv deptry ."
 typecheck = "uv run ty check"
 release = "bash scripts/release.sh"
+
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*"]
+
+[tool.usecli]
+title = "useChange"
+title_file = "src/usechange/cli/themes/title.txt"
+title_font = "ansi_shadow"
+description = "Automated python change and release"
+commands_dir = "src/usechange/cli/commands"
+templates_dir = "src/usechange/cli/templates"
+themes_dir = "src/usechange/cli/themes"
+theme = "default"
+hide_init = true
+hide_inspire = true
+hide_make_command = false
+hide_make_theme = true
+
+[project.scripts]
+usechange = "usecli:main"
+change = "usecli:main"
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"

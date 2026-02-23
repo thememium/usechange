@@ -23,8 +23,8 @@ Changelog = "https://github.com/thememium/usechange/blob/master/CHANGELOG.md"
 
 
 [project.scripts]
-usechange = "usechange.cli:main"
-change = "usechange.cli:main"
+usechange = "usecli:main"
+change = "usecli:main"
 
 [build-system]
 requires = ["uv_build>=0.10.2,<0.11.0"]

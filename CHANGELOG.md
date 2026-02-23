@@ -1,5 +1,35 @@
 # Changelog
 
+## v0.1.7 (2026-02-23)
+
+### 🚀 Enhancements
+
+- **changelog_command**: add "log" alias to ChangelogCommand ([49a6b88](https://github.com/thememium/usechange/commit/49a6b889030cb55d1b53dbc8b4a96903f9326188))
+- **changelog**: support optional output file and return content when not written ([b604102](https://github.com/thememium/usechange/commit/b6041022e78642ea650a84c978f78cd9bbdc63c2))
+
+### 📖 Documentation
+
+- **issue-template**: add GitHub bug report template ([569b426](https://github.com/thememium/usechange/commit/569b426cd78942b5c23fb80574f83061266ae8dd))
+- **contributing**: add comprehensive contributing guide ([8487cb7](https://github.com/thememium/usechange/commit/8487cb7fed1a88eae1f8d11f736d0c10f623c25c))
+- add MIT LICENSE file ([5d2a89c](https://github.com/thememium/usechange/commit/5d2a89c693c6dfa454ed341733529d4fe298fbb4))
+- **security**: add SECURITY.md with vulnerability reporting guidelines ([e10a6a6](https://github.com/thememium/usechange/commit/e10a6a636eeb6c7a34566a4aff087fa45afd6578))
+- **readme**: replace relative logo path with absolute raw GitHub URL ([7024dc5](https://github.com/thememium/usechange/commit/7024dc5af41f1fa7a6a303539d20dbcee1d1832e))
+- add comprehensive README and project logo ([5e3590e](https://github.com/thememium/usechange/commit/5e3590e598ea103e2def4cbc55045b2c817cafc3))
+
+### 📦 Build
+
+- **pyproject**: add metadata, scripts, and migrate to uv_build ([d0dd70a](https://github.com/thememium/usechange/commit/d0dd70ac79defcd725bf546268e4af1650bc9c27))
+
+### 🏡 Chore
+
+- **usechange**: add __init__.py to mark directory as a package ([3930ebb](https://github.com/thememium/usechange/commit/3930ebb83d0dbe0a883684ceb0883bb12800d800))
+
+### Contributors
+
+- Edward Boswell <thememium@gmail.com>
+
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.6...HEAD)
+
 ## v0.1.6 (2026-02-22)
 
 ### 🚀 Enhancements

@@ -1,6 +1,6 @@
 [project]
 name = "usechange"
-version = "0.1.6"
+version = "0.1.7"
 description = "Generate Beautiful Changelogs using Conventional Commits"
 readme = "README.md"
 authors = [{ name = "Edward Boswell", email = "thememium@gmail.com" }]
@@ -53,6 +53,7 @@ lint = "uv run ruff check ."
 format = "uv run ruff format ."
 deptry = "uv deptry ."
 typecheck = "uv run ty check"
+build = "uv build --no-sources"
 release = "uv run usechange release"
 
 [tool.ty]

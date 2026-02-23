@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.1.12 (2026-02-23)
+
+### 🚀 Enhancements
+
+- **cli**: add usecli.config.toml with default CLI settings ([a0c9b5f](https://github.com/thememium/usechange/commit/a0c9b5fe8c89df8e8f7039d0658610fab72217a9))
+
+### 🏡 Chore
+
+- **pyproject**: bump usecli to 0.1.35 and add setuptools package discovery ([53fd151](https://github.com/thememium/usechange/commit/53fd15193453d6615abca63b303560b9c382b176))
+
+### Contributors
+
+- Edward Boswell <thememium@gmail.com>
+
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.11...HEAD)
+
 ## v0.1.11 (2026-02-23)
 
 ### 🚀 Enhancements

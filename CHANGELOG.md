@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.1.10 (2026-02-23)
+
+### 🚀 Enhancements
+
+- **cli**: add bootstrap for usecli configuration and CLI entrypoint ([ff743a2](https://github.com/thememium/usechange/commit/ff743a24ad2cb5fe1f4a5184f95dba23dfa2600d))
+
+### 🩹 Fixes
+
+- **pyproject**: update CLI entry points to usechange.cli module ([ed6a154](https://github.com/thememium/usechange/commit/ed6a1543f1523b93e16d2898679a3a81e8bd855c))
+
+### Contributors
+
+- Edward Boswell <thememium@gmail.com>
+
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.9...HEAD)
+
 ## v0.1.9 (2026-02-23)
 
 ### ✅ Tests

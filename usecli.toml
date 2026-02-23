@@ -1,0 +1,13 @@
+[tool.usecli]
+title = "useChange"
+title_file = "src/usechange/cli/themes/title.txt"
+title_font = "ansi_shadow"
+description = "Automated python change and release"
+commands_dir = "src/usechange/cli/commands"
+templates_dir = "src/usechange/cli/templates"
+themes_dir = "src/usechange/cli/themes"
+theme = "default"
+hide_init = true
+hide_inspire = true
+hide_make_command = true
+hide_make_theme = true

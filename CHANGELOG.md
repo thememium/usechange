@@ -1,20 +1,28 @@
 # Changelog
 
-## v0.1.8 (2026-02-23)
+## v0.1.9 (2026-02-23)
 
-### 🚀 Enhancements
+### ✅ Tests
 
-- **release**: auto‑bump version when existing tag or version present ([0c461bc](https://github.com/thememium/usechange/commit/0c461bcebef39f08cf17ffd3e63bde5b701f7c49))
-
-### 🤖 CI
-
-- **publish**: add workflow to publish package on release ([53c02fe](https://github.com/thememium/usechange/commit/53c02fedb477efe1a128cb8e7f70b98609aa28bc))
+- **smoke**: add smoke tests for package imports and CLI command signatures ([f1cb5fc](https://github.com/thememium/usechange/commit/f1cb5fc5481fba2ec7fec9f9139914b7821d7971))
 
 ### Contributors
 
 - Edward Boswell <thememium@gmail.com>
 
-[Compare changes](https://github.com/thememium/usechange/compare/v0.1.7...HEAD)
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.8...HEAD)
+
+## v0.1.8 (2026-02-23)
+
+### ✅ Tests
+
+- **smoke**: add smoke tests for package imports and CLI command signatures ([f1cb5fc](https://github.com/thememium/usechange/commit/f1cb5fc5481fba2ec7fec9f9139914b7821d7971))
+
+### Contributors
+
+- Edward Boswell <thememium@gmail.com>
+
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.8...HEAD)
 
 ## v0.1.7 (2026-02-23)
 

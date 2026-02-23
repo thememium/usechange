@@ -2,7 +2,7 @@
 
 <div align="center">
   <a href="https://github.com/thememium/usechange">
-    <img src="docs/images/usechange-logo-dark-bg.png" alt="useChange" width="520" height="162">
+    <img src="https://raw.githubusercontent.com/thememium/usechange/refs/heads/master/docs/images/usechange-logo-dark-bg.png" alt="useChange" width="520" height="162">
   </a>
 
   <p align="center">

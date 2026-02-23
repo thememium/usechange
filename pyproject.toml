@@ -5,7 +5,30 @@ description = "Generate Beautiful Changelogs using Conventional Commits"
 readme = "README.md"
 authors = [{ name = "Edward Boswell", email = "thememium@gmail.com" }]
 requires-python = ">=3.10"
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Operating System :: OS Independent",
+  "Intended Audience :: Developers",
+]
 dependencies = ["tomli>=2.4.0", "usecli>=0.1.32"]
+license = "MIT"
+license-files = ["LICEN[CS]E*"]
+
+[project.urls]
+Homepage = "https://github.com/thememium/usechange"
+Documentation = "https://github.com/thememium/usechange"
+Repository = "https://github.com/thememium/usechange.git"
+Issues = "https://github.com/thememium/usechange/issues"
+Changelog = "https://github.com/thememium/usechange/blob/master/CHANGELOG.md"
+
+
+[project.scripts]
+usechange = "usecli:main"
+change = "usecli:main"
+
+[build-system]
+requires = ["uv_build>=0.10.2,<0.11.0"]
+build-backend = "uv_build"
 
 [dependency-groups]
 dev = [
@@ -32,10 +55,15 @@ deptry = "uv deptry ."
 typecheck = "uv run ty check"
 release = "uv run usechange release"
 
+[tool.ty]
 
-[tool.setuptools.packages.find]
-where = ["."]
-include = ["src*"]
+[tool.ty.src]
+include = ["src", "tests"]
+exclude = ["**/__pycache__", "**/.venv"]
+
+[tool.ty.rules]
+# Ty uses rule = "level" format (error, warn, ignore)
+# See all rules at: https://docs.astral.sh/ty/reference/rules/
 
 [tool.usecli]
 title = "useChange"
@@ -50,11 +78,3 @@ hide_init = true
 hide_inspire = true
 hide_make_command = true
 hide_make_theme = true
-
-[project.scripts]
-usechange = "usecli:main"
-change = "usecli:main"
-
-[build-system]
-requires = ["setuptools>=68", "wheel"]
-build-backend = "setuptools.build_meta"

@@ -15,6 +15,9 @@ class ChangelogCommand(BaseCommand):
     def description(self) -> str:
         return "Generate changelog entries from Conventional Commits"
 
+    def aliases(self) -> list[str]:
+        return ["log"]
+
     def handle(
         self,
         repo_dir: str | None = Argument(

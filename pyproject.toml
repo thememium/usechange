@@ -10,7 +10,7 @@ classifiers = [
   "Operating System :: OS Independent",
   "Intended Audience :: Developers",
 ]
-dependencies = ["tomli>=2.4.0", "usecli>=0.1.33"]
+dependencies = ["tomli>=2.4.0", "usecli>=0.1.35"]
 license = "MIT"
 license-files = ["LICEN[CS]E*"]
 
@@ -66,16 +66,6 @@ exclude = ["**/__pycache__", "**/.venv"]
 # Ty uses rule = "level" format (error, warn, ignore)
 # See all rules at: https://docs.astral.sh/ty/reference/rules/
 
-[tool.usecli]
-title = "useChange"
-title_file = "src/usechange/cli/themes/title.txt"
-title_font = "ansi_shadow"
-description = "Automated python change and release"
-commands_dir = "src/usechange/cli/commands"
-templates_dir = "src/usechange/cli/templates"
-themes_dir = "src/usechange/cli/themes"
-theme = "default"
-hide_init = true
-hide_inspire = true
-hide_make_command = true
-hide_make_theme = true
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*"]

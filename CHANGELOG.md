@@ -1,5 +1,26 @@
 # Changelog
 
+## v0.1.11 (2026-02-23)
+
+### 🚀 Enhancements
+
+- **cli**: add usecli.toml configuration file ([1505be3](https://github.com/thememium/usechange/commit/1505be3089af1c42744e0fc4b381c95a2c806ca1))
+
+### 🏡 Chore
+
+- **deps**: bump usecli to 0.1.33 ([3cb25d8](https://github.com/thememium/usechange/commit/3cb25d83ce76c4d6e4cf193d4f00af2d6b9846a7))
+
+### Other Changes
+
+- Revert "feat(cli): add bootstrap for usecli configuration and CLI entrypoint" ([c507afb](https://github.com/thememium/usechange/commit/c507afb578063d7ed552fec8eccd67a815f338d7))
+- Revert "fix(pyproject): update CLI entry points to usechange.cli module" ([6eebca8](https://github.com/thememium/usechange/commit/6eebca8072ea21b1ef795b56a16eb19de6733362))
+
+### Contributors
+
+- Edward Boswell <thememium@gmail.com>
+
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.10...HEAD)
+
 ## v0.1.10 (2026-02-23)
 
 ### 🚀 Enhancements

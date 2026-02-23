@@ -30,7 +30,7 @@ class ChangelogOptions:
     to_ref: str | None
     directory: str | None
     clean: bool
-    output: str
+    output: str | None
     no_output: bool
     no_authors: bool
     hide_author_email: bool
@@ -59,6 +59,7 @@ class ChangelogOptions:
 @dataclass(frozen=True)
 class ChangelogResult:
     message: str
+    content: str
     output_path: str | None
     new_version: str | None
     wrote_file: bool
@@ -72,6 +73,7 @@ def run_changelog(options: ChangelogOptions) -> ChangelogResult:
     if options.clean and not git.is_clean(directory):
         return ChangelogResult(
             message="Working directory is not clean.",
+            content="",
             output_path=None,
             new_version=None,
             wrote_file=False,
@@ -129,6 +131,7 @@ def run_changelog(options: ChangelogOptions) -> ChangelogResult:
     message = f"Changelog generated for {version}."
     return ChangelogResult(
         message=message,
+        content=content,
         output_path=output_path,
         new_version=version,
         wrote_file=wrote_file,

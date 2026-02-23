@@ -26,8 +26,12 @@ class ChangelogCommand(BaseCommand):
         clean: bool = Option(
             False, "--clean", is_flag=True, help="Ensure working directory is clean"
         ),
-        output: str = Option(
-            "CHANGELOG.md", "--output", help="Changelog file to write"
+        output: str | None = Option(None, "--output", help="Changelog file to write"),
+        write_output: bool = Option(
+            False,
+            "--write",
+            is_flag=True,
+            help="Write changelog to CHANGELOG.md",
         ),
         no_output: bool = Option(
             False, "--no-output", is_flag=True, help="Do not write a changelog file"
@@ -90,6 +94,7 @@ class ChangelogCommand(BaseCommand):
         _ensure_src_on_path()
         from usechange.changelog.cli.default import ChangelogOptions, run_changelog
 
+        effective_no_output = no_output or (output is None and not write_output)
         options = ChangelogOptions(
             repo_dir=repo_dir,
             from_ref=from_ref,
@@ -97,7 +102,7 @@ class ChangelogCommand(BaseCommand):
             directory=directory,
             clean=clean,
             output=output,
-            no_output=no_output,
+            no_output=effective_no_output,
             no_authors=no_authors,
             hide_author_email=hide_author_email,
             bump=bump,
@@ -121,7 +126,12 @@ class ChangelogCommand(BaseCommand):
             prerelease=prerelease,
         )
         result = run_changelog(options)
-        console.print(result.message)
+        if result.output_path:
+            console.print(result.message)
+        elif result.content:
+            console.print(result.content)
+        else:
+            console.print(result.message)
 
 
 def _ensure_src_on_path() -> None:

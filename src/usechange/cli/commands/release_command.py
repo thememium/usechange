@@ -3,6 +3,7 @@ from __future__ import annotations
 import subprocess
 import sys
 import tempfile
+from dataclasses import replace
 from pathlib import Path
 
 from usecli import BaseCommand, Confirm, Option, console
@@ -28,49 +29,53 @@ class ReleaseCommand(BaseCommand):
             return
 
         resolved_dir = str(Path(directory or ".").resolve())
-        changelog_result = run_changelog(
-            ChangelogOptions(
-                repo_dir=None,
-                from_ref=None,
-                to_ref=None,
-                directory=resolved_dir,
-                clean=False,
-                output="CHANGELOG.md",
-                no_output=False,
-                no_authors=False,
-                hide_author_email=False,
-                bump=True,
-                release_version=None,
-                release=False,
-                no_commit=False,
-                no_tag=False,
-                push=False,
-                no_github=False,
-                publish=False,
-                publish_tag="latest",
-                name_suffix=None,
-                version_suffix=None,
-                canary=None,
-                major=False,
-                minor=False,
-                patch=False,
-                premajor=None,
-                preminor=None,
-                prepatch=None,
-                prerelease=None,
-                update_versions=False,
-            )
+        existing_versions = _load_existing_versions(resolved_dir)
+        base_options = ChangelogOptions(
+            repo_dir=None,
+            from_ref=None,
+            to_ref=None,
+            directory=resolved_dir,
+            clean=False,
+            output="CHANGELOG.md",
+            no_output=False,
+            no_authors=False,
+            hide_author_email=False,
+            bump=True,
+            release_version=None,
+            release=False,
+            no_commit=False,
+            no_tag=False,
+            push=False,
+            no_github=False,
+            publish=False,
+            publish_tag="latest",
+            name_suffix=None,
+            version_suffix=None,
+            canary=None,
+            major=False,
+            minor=False,
+            patch=False,
+            premajor=None,
+            preminor=None,
+            prepatch=None,
+            prerelease=None,
+            update_versions=False,
         )
+        changelog_result = run_changelog(base_options)
 
         version = changelog_result.new_version
         if not version:
             raise RuntimeError("Unable to determine release version")
 
-        tag_name = f"v{version}"
-        if _tag_exists(resolved_dir, tag_name):
-            raise RuntimeError(
-                f"Tag {tag_name} already exists. Bump the version or delete the tag."
+        next_version = _next_available_version(resolved_dir, version, existing_versions)
+        if next_version != version:
+            console.print(f"Version {version} exists. Bumping to {next_version}.")
+            changelog_result = run_changelog(
+                replace(base_options, release_version=next_version)
             )
+            version = next_version
+
+        tag_name = f"v{version}"
 
         _run(resolved_dir, ["uv", "version", version])
         _run(resolved_dir, ["uv", "sync"])
@@ -178,6 +183,33 @@ def _tag_exists(directory: str, tag_name: str) -> bool:
         text=True,
     )
     return result.returncode == 0
+
+
+def _load_existing_versions(directory: str) -> set[str]:
+    changelog = Path(directory) / "CHANGELOG.md"
+    if not changelog.exists():
+        return set()
+    from usechange.changelog.markdown import parse_changelog
+
+    releases = parse_changelog(changelog.read_text())
+    return {release.version.lstrip("v") for release in releases}
+
+
+def _next_available_version(
+    directory: str, version: str, existing_versions: set[str]
+) -> str:
+    from usechange.changelog.semver import bump_version
+
+    candidate = version
+    while True:
+        if candidate.lstrip("v") not in existing_versions and not _tag_exists(
+            directory, f"v{candidate}"
+        ):
+            return candidate
+        bumped = bump_version(candidate, "patch", None)
+        if bumped == candidate:
+            raise RuntimeError("Unable to auto-bump release version")
+        candidate = bumped
 
 
 def _ensure_src_on_path() -> None:

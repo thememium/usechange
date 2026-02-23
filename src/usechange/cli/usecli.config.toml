@@ -1,4 +1,4 @@
-[tool.usecli]
+[usecli]
 title = "useChange"
 title_file = "src/usechange/cli/themes/title.txt"
 title_font = "ansi_shadow"

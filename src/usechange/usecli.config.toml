@@ -1,4 +1,5 @@
 [usecli]
+command_name = "usechange"
 title = "useChange"
 title_file = "cli/themes/title.txt"
 title_font = "ansi_shadow"

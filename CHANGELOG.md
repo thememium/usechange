@@ -1,21 +1,28 @@
 # Changelog
 
-## v0.1.15 (2026-02-24)
-
-### 🚀 Enhancements
-
-- **usecli.config**: add `command_name` field to define CLI command name ([5ca1820](https://github.com/thememium/usechange/commit/5ca1820e66019fc072d9104012f04e69db103155))
+## v0.1.16 (2026-02-24)
 
 ### 🏡 Chore
 
-- **pyproject**: bump usecli to 0.1.40 and enable ruff auto‑fix in clean‑full task ([9554a8e](https://github.com/thememium/usechange/commit/9554a8efcc7b1d5ac7ff65f14577eafb6cbaf07b))
-- **pyproject**: bump usecli dependency to 0.1.39 ([5058867](https://github.com/thememium/usechange/commit/50588676679ae51723ecc131f883b9cc82f935c8))
+- **pyproject**: bump usecli dependency to 0.1.41 ([dfa1542](https://github.com/thememium/usechange/commit/dfa15429542d3f02b104b28e53721cca657037f9))
 
 ### Contributors
 
 - Edward Boswell <thememium@gmail.com>
 
-[Compare changes](https://github.com/thememium/usechange/compare/v0.1.14...HEAD)
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.15...HEAD)
+
+## v0.1.15 (2026-02-24)
+
+### 🏡 Chore
+
+- **pyproject**: bump usecli dependency to 0.1.41 ([dfa1542](https://github.com/thememium/usechange/commit/dfa15429542d3f02b104b28e53721cca657037f9))
+
+### Contributors
+
+- Edward Boswell <thememium@gmail.com>
+
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.15...HEAD)
 
 ## v0.1.14 (2026-02-24)
 

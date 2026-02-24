@@ -1,11 +1,11 @@
 [usecli]
 title = "useChange"
-title_file = "themes/title.txt"
+title_file = "cli/themes/title.txt"
 title_font = "ansi_shadow"
 description = "Automated python change and release"
-commands_dir = "commands"
-templates_dir = "templates"
-themes_dir = "themes"
+commands_dir = "cli/commands"
+templates_dir = "cli/templates"
+themes_dir = "cli/themes"
 theme = "default"
 hide_init = true
 hide_inspire = true

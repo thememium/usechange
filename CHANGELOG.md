@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.1.13 (2026-02-24)
+
+### 💅 Refactors
+
+- **usecli.config**: simplify directory paths in configuration ([a50ea84](https://github.com/thememium/usechange/commit/a50ea84aed90818ac6023e051f17e0cad768942b))
+
+### 🏡 Chore
+
+- **deps**: bump usecli to 0.1.37 ([c7d2d03](https://github.com/thememium/usechange/commit/c7d2d03a4b30a0d887376d1ae3319579bb15faff))
+
+### Contributors
+
+- Edward Boswell <thememium@gmail.com>
+
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.12...HEAD)
+
 ## v0.1.12 (2026-02-23)
 
 ### 🚀 Enhancements

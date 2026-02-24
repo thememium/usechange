@@ -570,7 +570,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "tomli", specifier = ">=2.4.0" },
-    { name = "usecli", specifier = ">=0.1.39" },
+    { name = "usecli", specifier = ">=0.1.40" },
 ]
 
 [package.metadata.requires-dev]
@@ -585,7 +585,7 @@ dev = [
 
 [[package]]
 name = "usecli"
-version = "0.1.39"
+version = "0.1.40"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "case-converter" },
@@ -599,7 +599,7 @@ dependencies = [
     { name = "tomli" },
     { name = "typer" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/69/3c/c67f712603f783b9c1b9fb4c162623fc97dc5e704dd94b2fc80fe6797215/usecli-0.1.39.tar.gz", hash = "sha256:0fb743e155dca04ec92253d4dbc78a79690f1840046c41392ff3640b29fa0ef9", size = 49505, upload-time = "2026-02-24T05:51:05.084Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/0e/5e/9c385af70d58eb46ae6d25155a1b24f9da6244e76d2aea71cdebd894947a/usecli-0.1.40.tar.gz", hash = "sha256:0b29c17334d892693c2feaeb7772c1d722b4c42c693e67b5ae8709e5f1b1750a", size = 49515, upload-time = "2026-02-24T06:07:12.792Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/25/87/4646d40c533b995fa5456b9bb780ae61e4221f8097ec5a35e50c400706ee/usecli-0.1.39-py3-none-any.whl", hash = "sha256:5b4430e6cb324d0a2809fb77ccc0c5e1c7b5cbe39d32ba643db41700cfffe941", size = 75771, upload-time = "2026-02-24T05:51:03.928Z" },
+    { url = "https://files.pythonhosted.org/packages/08/fd/ee7a23a0223124abe10a821344810c179ba67922b30af23773067d068d71/usecli-0.1.40-py3-none-any.whl", hash = "sha256:4c884f7d9d2c6bd1f8486c796fcdb377c2695c9a4a7f12e38e303962b9fc7c10", size = 75766, upload-time = "2026-02-24T06:07:13.84Z" },
 ]

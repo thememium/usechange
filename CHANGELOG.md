@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.1.14 (2026-02-24)
+
+### 🚀 Enhancements
+
+- **usecli**: add default configuration file for useChange CLI ([4df2259](https://github.com/thememium/usechange/commit/4df22590aed203c45d8c732c2550cb4db0f98537))
+
+### 🏡 Chore
+
+- **deps**: bump usecli to 0.1.38 ([62fb63d](https://github.com/thememium/usechange/commit/62fb63d7a131ce5a8406042ce8732cffcbc072c6))
+
+### Contributors
+
+- Edward Boswell <thememium@gmail.com>
+
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.13...HEAD)
+
 ## v0.1.13 (2026-02-24)
 
 ### 💅 Refactors

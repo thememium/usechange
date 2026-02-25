@@ -1,5 +1,25 @@
 # Changelog
 
+## v0.1.17 (2026-02-25)
+
+### 🚀 Enhancements
+
+- **changelog**: add get_previous_tag helper ([1511919](https://github.com/thememium/usechange/commit/1511919f1cdd78881254faed2e1c1376f88833af))
+
+### 🩹 Fixes
+
+- **changelog**: use proper version tag for compare link generation ([11effcf](https://github.com/thememium/usechange/commit/11effcfec08f49ec54104d5c995d9a71bc3ad272))
+
+### 💅 Refactors
+
+- **changelog**: centralize compare-to-ref resolution and streamline output handling ([36ac339](https://github.com/thememium/usechange/commit/36ac3394822dad9a51c187c6299a65fae46327c2))
+
+### Contributors
+
+- Edward Boswell <thememium@gmail.com>
+
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.16...v0.1.17)
+
 ## v0.1.16 (2026-02-24)
 
 ### 🏡 Chore

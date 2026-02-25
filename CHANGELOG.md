@@ -1,22 +1,24 @@
 # Changelog
 
+## v0.1.20 (2026-02-25)
+
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.19...v0.1.20)
+
+### 🏡 Chore
+
+- **deps**: bump usecli to 0.1.42 ([90fcd14](https://github.com/thememium/usechange/commit/90fcd14aaba09905b96b1ec2fbc0476ac1c8f2c2))
+
+### Contributors
+
+- Edward Boswell <thememium@gmail.com>
+
 ## v0.1.19 (2026-02-25)
 
 [Compare changes](https://github.com/thememium/usechange/compare/v0.1.18...v0.1.19)
 
-### 🚀 Enhancements
-
-- **cli**: add preview_next_version option to ReleaseCommand ([cd14961](https://github.com/thememium/usechange/commit/cd1496166d2f492765a58454c10584cff36834b7))
-- **changelog**: enable preview_next_version flag when generating changelog ([8e06055](https://github.com/thememium/usechange/commit/8e06055afcd7dd00e9ac12dc6af4f97c94aa05a0))
-- **changelog**: add preview_next_version option to preview next version bump ([819f67b](https://github.com/thememium/usechange/commit/819f67b67a63908810634fec84dce1e01ebad3c2))
-
-### 📖 Documentation
-
-- **readme**: update usage to reflect `change` aliases and add interactive workflow details ([7d2ca74](https://github.com/thememium/usechange/commit/7d2ca747042556005ea4856e2edecd899c1058cf))
-
 ### 🏡 Chore
 
-- **changelog**: fix compare links to reference correct version tags ([1eb34a4](https://github.com/thememium/usechange/commit/1eb34a4e44d28d4b40305335d6626d4f6c7000d9))
+- **deps**: bump usecli to 0.1.42 ([90fcd14](https://github.com/thememium/usechange/commit/90fcd14aaba09905b96b1ec2fbc0476ac1c8f2c2))
 
 ### Contributors
 

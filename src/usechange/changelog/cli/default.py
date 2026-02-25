@@ -55,6 +55,7 @@ class ChangelogOptions:
     preminor: str | None
     prepatch: str | None
     prerelease: str | None
+    preview_next_version: bool = False
     update_versions: bool = True
 
 
@@ -299,6 +300,8 @@ def _resolve_version(
         current_version = "0.0.0"
 
     bump = _resolve_bump(options, config, commits)
+    if bump is None and options.preview_next_version:
+        bump = determine_bump(commits, config.types)
     if not bump:
         return current_version
 

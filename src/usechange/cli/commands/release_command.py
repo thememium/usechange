@@ -67,6 +67,7 @@ class ReleaseCommand(BaseCommand):
             preminor=None,
             prepatch=None,
             prerelease=None,
+            preview_next_version=False,
             update_versions=False,
         )
         changelog_result = run_changelog(base_options)

@@ -45,6 +45,9 @@ class ChangelogCommand(BaseCommand):
         no_date: bool = Option(
             False, "--noDate", is_flag=True, help="Omit date from header"
         ),
+        no_emojis: bool = Option(
+            False, "--noEmojis", is_flag=True, help="Omit emojis from headers"
+        ),
         hide_author_email: bool = Option(
             False,
             "--hideAuthorEmail",
@@ -110,6 +113,7 @@ class ChangelogCommand(BaseCommand):
             output=output,
             no_output=effective_no_output,
             no_authors=no_authors,
+            include_emojis=not no_emojis,
             include_date=not no_date,
             hide_author_email=hide_author_email,
             bump=bump,

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import json
 import re
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -33,6 +33,7 @@ class ChangelogOptions:
     output: str | None
     no_output: bool
     no_authors: bool
+    include_emojis: bool
     include_date: bool
     hide_author_email: bool
     bump: bool
@@ -82,6 +83,8 @@ def run_changelog(options: ChangelogOptions) -> ChangelogResult:
         )
 
     config = _resolve_config_from_options(directory, options)
+    if not options.include_emojis:
+        config = replace(config, types=_strip_emoji_from_types(config.types))
     repo_info: RepoInfo | None = resolve_repo(config.repo, directory)
     from_ref = config.from_ref or git.get_latest_tag(directory)
     to_ref = config.to_ref or "HEAD"
@@ -231,6 +234,20 @@ def _group_commits(
             ChangeSection(title="Other Changes", items=grouped["Other Changes"])
         )
     return ordered_sections
+
+
+def _strip_emoji_from_title(title: str) -> str:
+    stripped = re.sub(r"^[^A-Za-z0-9]+\s*", "", title).strip()
+    return stripped if stripped else title
+
+
+def _strip_emoji_from_types(
+    types: dict[str, TypeConfig],
+) -> dict[str, TypeConfig]:
+    return {
+        key: replace(config, title=_strip_emoji_from_title(config.title))
+        for key, config in types.items()
+    }
 
 
 def _format_commit(commit: ParsedCommit, repo_info: RepoInfo | None) -> str:

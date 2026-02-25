@@ -25,6 +25,10 @@ def render_release(notes: ReleaseNotes) -> str:
         header = f"{header} ({notes.date})"
     blocks: list[str] = [header, ""]
 
+    if notes.compare_url:
+        blocks.append(f"[Compare changes]({notes.compare_url})")
+        blocks.append("")
+
     for section in notes.sections:
         if not section.items:
             continue
@@ -39,10 +43,6 @@ def render_release(notes: ReleaseNotes) -> str:
         blocks.append("")
         for contributor in notes.contributors:
             blocks.append(f"- {contributor}")
-        blocks.append("")
-
-    if notes.compare_url:
-        blocks.append(f"[Compare changes]({notes.compare_url})")
         blocks.append("")
 
     return "\n".join(blocks).rstrip()

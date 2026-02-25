@@ -99,11 +99,11 @@ def run_changelog(options: ChangelogOptions) -> ChangelogResult:
             options.hide_author_email or bool(config.hide_author_email),
         )
 
+    version = _resolve_version(directory, options, config, parsed_commits)
+    compare_to_ref = config.to_ref or _version_tag(version)
     compare_link = None
     if from_ref:
-        compare_link = compare_url(repo_info, from_ref, to_ref)
-
-    version = _resolve_version(directory, options, config, parsed_commits)
+        compare_link = compare_url(repo_info, from_ref, compare_to_ref)
     date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     notes = ReleaseNotes(
         version=f"v{version}",
@@ -279,6 +279,12 @@ def _resolve_version(
     if suffix:
         next_version = f"{next_version}-{suffix}"
     return next_version
+
+
+def _version_tag(version: str) -> str:
+    if version.startswith("v"):
+        return version
+    return f"v{version}"
 
 
 def _resolve_bump(

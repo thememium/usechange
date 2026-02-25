@@ -29,3 +29,14 @@ def test_render_and_parse_changelog_roundtrip() -> None:
     assert parsed[0].contributors == ["Alice <alice@example.com>"]
     assert parsed[0].sections[0].title == "Enhancements"
     assert parsed[0].sections[0].items == ["Add feature A"]
+
+
+def test_render_release_without_date() -> None:
+    notes = ReleaseNotes(
+        version="v2.0.0",
+        date=None,
+        sections=[ChangeSection(title="Fixes", items=["Fix issue"])],
+    )
+    content = render_changelog([notes])
+    assert "## v2.0.0" in content
+    assert "## v2.0.0 (" not in content

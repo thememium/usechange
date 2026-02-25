@@ -33,6 +33,7 @@ class ChangelogOptions:
     output: str | None
     no_output: bool
     no_authors: bool
+    include_date: bool
     hide_author_email: bool
     bump: bool
     release_version: str | None
@@ -116,7 +117,9 @@ def run_changelog(options: ChangelogOptions) -> ChangelogResult:
     compare_link = None
     if compare_from_ref:
         compare_link = compare_url(repo_info, compare_from_ref, compare_to_ref)
-    date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    date = None
+    if options.include_date:
+        date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     notes = ReleaseNotes(
         version=f"v{version}",
         date=date,

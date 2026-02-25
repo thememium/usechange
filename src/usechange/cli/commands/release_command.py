@@ -20,6 +20,9 @@ class ReleaseCommand(BaseCommand):
         self,
         directory: str | None = Option(None, "--dir", help="Path to a git repository"),
         yes: bool = Option(False, "--yes", "-y", help="Skip confirmation"),
+        no_date: bool = Option(
+            False, "--noDate", is_flag=True, help="Omit date from header"
+        ),
     ) -> None:
         _ensure_src_on_path()
         from usechange.changelog.cli.default import ChangelogOptions, run_changelog
@@ -39,6 +42,7 @@ class ReleaseCommand(BaseCommand):
             output="CHANGELOG.md",
             no_output=False,
             no_authors=False,
+            include_date=not no_date,
             hide_author_email=False,
             bump=True,
             release_version=None,

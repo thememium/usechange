@@ -42,6 +42,9 @@ class ChangelogCommand(BaseCommand):
         no_authors: bool = Option(
             False, "--noAuthors", is_flag=True, help="Skip contributors section"
         ),
+        no_date: bool = Option(
+            False, "--noDate", is_flag=True, help="Omit date from header"
+        ),
         hide_author_email: bool = Option(
             False,
             "--hideAuthorEmail",
@@ -107,6 +110,7 @@ class ChangelogCommand(BaseCommand):
             output=output,
             no_output=effective_no_output,
             no_authors=no_authors,
+            include_date=not no_date,
             hide_author_email=hide_author_email,
             bump=bump,
             release_version=release_version,

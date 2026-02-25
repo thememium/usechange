@@ -135,6 +135,7 @@ class ChangelogCommand(BaseCommand):
             preminor=preminor,
             prepatch=prepatch,
             prerelease=prerelease,
+            preview_next_version=True,
         )
         result = run_changelog(options)
         if result.output_path:

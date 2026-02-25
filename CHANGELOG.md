@@ -44,7 +44,7 @@
 
 ## v0.1.16 (2026-02-24)
 
-[Compare changes](https://github.com/thememium/usechange/compare/v0.1.15...HEAD)
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.15...v0.1.16)
 
 ### 🏡 Chore
 
@@ -56,7 +56,7 @@
 
 ## v0.1.15 (2026-02-24)
 
-[Compare changes](https://github.com/thememium/usechange/compare/v0.1.15...HEAD)
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.14...v0.1.15)
 
 ### 🏡 Chore
 
@@ -68,7 +68,7 @@
 
 ## v0.1.14 (2026-02-24)
 
-[Compare changes](https://github.com/thememium/usechange/compare/v0.1.13...HEAD)
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.13...v0.1.14)
 
 ### 🚀 Enhancements
 
@@ -84,7 +84,7 @@
 
 ## v0.1.13 (2026-02-24)
 
-[Compare changes](https://github.com/thememium/usechange/compare/v0.1.12...HEAD)
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.12...v0.1.13)
 
 ### 💅 Refactors
 
@@ -100,7 +100,7 @@
 
 ## v0.1.12 (2026-02-23)
 
-[Compare changes](https://github.com/thememium/usechange/compare/v0.1.11...HEAD)
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.11...v0.1.12)
 
 ### 🚀 Enhancements
 
@@ -116,7 +116,7 @@
 
 ## v0.1.11 (2026-02-23)
 
-[Compare changes](https://github.com/thememium/usechange/compare/v0.1.10...HEAD)
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.10...v0.1.11)
 
 ### 🚀 Enhancements
 
@@ -137,7 +137,7 @@
 
 ## v0.1.10 (2026-02-23)
 
-[Compare changes](https://github.com/thememium/usechange/compare/v0.1.9...HEAD)
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.9...v0.1.10)
 
 ### 🚀 Enhancements
 
@@ -153,7 +153,7 @@
 
 ## v0.1.9 (2026-02-23)
 
-[Compare changes](https://github.com/thememium/usechange/compare/v0.1.8...HEAD)
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.8...v0.1.9)
 
 ### ✅ Tests
 
@@ -165,7 +165,7 @@
 
 ## v0.1.8 (2026-02-23)
 
-[Compare changes](https://github.com/thememium/usechange/compare/v0.1.8...HEAD)
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.7...v0.1.8)
 
 ### ✅ Tests
 
@@ -177,7 +177,7 @@
 
 ## v0.1.7 (2026-02-23)
 
-[Compare changes](https://github.com/thememium/usechange/compare/v0.1.6...HEAD)
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.6...v0.1.7)
 
 ### 🚀 Enhancements
 
@@ -207,7 +207,7 @@
 
 ## v0.1.6 (2026-02-22)
 
-[Compare changes](https://github.com/thememium/usechange/compare/v0.1.5...HEAD)
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.5...v0.1.6)
 
 ### 🚀 Enhancements
 
@@ -224,7 +224,7 @@
 
 ## v0.1.5 (2026-02-22)
 
-[Compare changes](https://github.com/thememium/usechange/compare/v0.1.4...HEAD)
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.4...v0.1.5)
 
 ### 🚀 Enhancements
 
@@ -245,7 +245,7 @@
 
 ## v0.1.4 (2026-02-22)
 
-[Compare changes](https://github.com/thememium/usechange/compare/v0.1.3...HEAD)
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.3...v0.1.4)
 
 ### 🩹 Fixes
 
@@ -261,7 +261,7 @@
 
 ## v0.1.3 (2026-02-22)
 
-[Compare changes](https://github.com/thememium/usechange/compare/v0.1.1...HEAD)
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.2...v0.1.3)
 
 ### 🚀 Enhancements
 
@@ -286,7 +286,7 @@
 
 ## v0.1.2 (2026-02-22)
 
-[Compare changes](https://github.com/thememium/usechange/compare/v0.1.1...HEAD)
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.1...v0.1.2)
 
 ### 🚀 Enhancements
 
@@ -307,7 +307,7 @@
 
 ## v0.1.1 (2026-02-22)
 
-[Compare changes](https://github.com/thememium/usechange/compare/v0.1.1...HEAD)
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.0...v0.1.1)
 
 ### 🏡 Chore
 

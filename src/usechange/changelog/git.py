@@ -48,6 +48,14 @@ def get_latest_tag(directory: str) -> str | None:
     return output or None
 
 
+def get_previous_tag(directory: str, ref: str) -> str | None:
+    try:
+        output = _run_git(directory, ["describe", "--tags", "--abbrev=0", f"{ref}^"])
+    except RuntimeError:
+        return None
+    return output or None
+
+
 def get_current_ref(directory: str) -> str:
     return _run_git(directory, ["rev-parse", "HEAD"])
 

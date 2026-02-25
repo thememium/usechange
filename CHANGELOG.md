@@ -1,6 +1,30 @@
 # Changelog
 
+## v0.1.18 (2026-02-25)
+
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.17...v0.1.18)
+
+### 🚀 Enhancements
+
+- **changelog**: add support to omit emojis from changelog output ([eba26cf](https://github.com/thememium/usechange/commit/eba26cf5879896f185a485b8359943c6d52346c7))
+- **changelog**: add `--noDate` option to omit date from header ([78a1bc6](https://github.com/thememium/usechange/commit/78a1bc6cc90b3a07b10aa7649ad84867da1258f1))
+
+### 💅 Refactors
+
+- **changelog**: move compare link before sections for better layout ([70a2e76](https://github.com/thememium/usechange/commit/70a2e761681f2c4b985095479cfda6ea45ae0254))
+
+### ✅ Tests
+
+- **changelog**: add unit tests for _strip_emoji_from_types ([fb7755a](https://github.com/thememium/usechange/commit/fb7755aae285655f741d4b6628958fe61ef5f24f))
+- **markdown**: add test for rendering release notes without a date ([0509cad](https://github.com/thememium/usechange/commit/0509cad09e11bc8044b3c9bcecf8710e36400b33))
+
+### Contributors
+
+- Edward Boswell <thememium@gmail.com>
+
 ## v0.1.17 (2026-02-25)
+
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.16...v0.1.17)
 
 ### 🚀 Enhancements
 
@@ -18,9 +42,9 @@
 
 - Edward Boswell <thememium@gmail.com>
 
-[Compare changes](https://github.com/thememium/usechange/compare/v0.1.16...v0.1.17)
-
 ## v0.1.16 (2026-02-24)
+
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.15...HEAD)
 
 ### 🏡 Chore
 
@@ -29,11 +53,11 @@
 ### Contributors
 
 - Edward Boswell <thememium@gmail.com>
-
-[Compare changes](https://github.com/thememium/usechange/compare/v0.1.15...HEAD)
 
 ## v0.1.15 (2026-02-24)
 
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.15...HEAD)
+
 ### 🏡 Chore
 
 - **pyproject**: bump usecli dependency to 0.1.41 ([dfa1542](https://github.com/thememium/usechange/commit/dfa15429542d3f02b104b28e53721cca657037f9))
@@ -42,9 +66,9 @@
 
 - Edward Boswell <thememium@gmail.com>
 
-[Compare changes](https://github.com/thememium/usechange/compare/v0.1.15...HEAD)
-
 ## v0.1.14 (2026-02-24)
+
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.13...HEAD)
 
 ### 🚀 Enhancements
 
@@ -58,9 +82,9 @@
 
 - Edward Boswell <thememium@gmail.com>
 
-[Compare changes](https://github.com/thememium/usechange/compare/v0.1.13...HEAD)
-
 ## v0.1.13 (2026-02-24)
+
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.12...HEAD)
 
 ### 💅 Refactors
 
@@ -74,9 +98,9 @@
 
 - Edward Boswell <thememium@gmail.com>
 
-[Compare changes](https://github.com/thememium/usechange/compare/v0.1.12...HEAD)
-
 ## v0.1.12 (2026-02-23)
+
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.11...HEAD)
 
 ### 🚀 Enhancements
 
@@ -90,9 +114,9 @@
 
 - Edward Boswell <thememium@gmail.com>
 
-[Compare changes](https://github.com/thememium/usechange/compare/v0.1.11...HEAD)
-
 ## v0.1.11 (2026-02-23)
+
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.10...HEAD)
 
 ### 🚀 Enhancements
 
@@ -111,9 +135,9 @@
 
 - Edward Boswell <thememium@gmail.com>
 
-[Compare changes](https://github.com/thememium/usechange/compare/v0.1.10...HEAD)
-
 ## v0.1.10 (2026-02-23)
+
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.9...HEAD)
 
 ### 🚀 Enhancements
 
@@ -127,9 +151,9 @@
 
 - Edward Boswell <thememium@gmail.com>
 
-[Compare changes](https://github.com/thememium/usechange/compare/v0.1.9...HEAD)
-
 ## v0.1.9 (2026-02-23)
+
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.8...HEAD)
 
 ### ✅ Tests
 
@@ -138,11 +162,11 @@
 ### Contributors
 
 - Edward Boswell <thememium@gmail.com>
-
-[Compare changes](https://github.com/thememium/usechange/compare/v0.1.8...HEAD)
 
 ## v0.1.8 (2026-02-23)
 
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.8...HEAD)
+
 ### ✅ Tests
 
 - **smoke**: add smoke tests for package imports and CLI command signatures ([f1cb5fc](https://github.com/thememium/usechange/commit/f1cb5fc5481fba2ec7fec9f9139914b7821d7971))
@@ -151,9 +175,9 @@
 
 - Edward Boswell <thememium@gmail.com>
 
-[Compare changes](https://github.com/thememium/usechange/compare/v0.1.8...HEAD)
-
 ## v0.1.7 (2026-02-23)
+
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.6...HEAD)
 
 ### 🚀 Enhancements
 
@@ -181,9 +205,9 @@
 
 - Edward Boswell <thememium@gmail.com>
 
-[Compare changes](https://github.com/thememium/usechange/compare/v0.1.6...HEAD)
-
 ## v0.1.6 (2026-02-22)
+
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.5...HEAD)
 
 ### 🚀 Enhancements
 
@@ -198,9 +222,9 @@
 
 - Edward Boswell <thememium@gmail.com>
 
-[Compare changes](https://github.com/thememium/usechange/compare/v0.1.5...HEAD)
-
 ## v0.1.5 (2026-02-22)
+
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.4...HEAD)
 
 ### 🚀 Enhancements
 
@@ -219,9 +243,9 @@
 
 - Edward Boswell <thememium@gmail.com>
 
-[Compare changes](https://github.com/thememium/usechange/compare/v0.1.4...HEAD)
-
 ## v0.1.4 (2026-02-22)
+
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.3...HEAD)
 
 ### 🩹 Fixes
 
@@ -235,9 +259,9 @@
 
 - Edward Boswell <thememium@gmail.com>
 
-[Compare changes](https://github.com/thememium/usechange/compare/v0.1.3...HEAD)
-
 ## v0.1.3 (2026-02-22)
+
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.1...HEAD)
 
 ### 🚀 Enhancements
 
@@ -260,9 +284,9 @@
 
 - Edward Boswell <thememium@gmail.com>
 
-[Compare changes](https://github.com/thememium/usechange/compare/v0.1.1...HEAD)
-
 ## v0.1.2 (2026-02-22)
+
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.1...HEAD)
 
 ### 🚀 Enhancements
 
@@ -281,9 +305,9 @@
 
 - Edward Boswell <thememium@gmail.com>
 
-[Compare changes](https://github.com/thememium/usechange/compare/v0.1.1...HEAD)
-
 ## v0.1.1 (2026-02-22)
+
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.1...HEAD)
 
 ### 🏡 Chore
 
@@ -292,5 +316,3 @@
 ### Contributors
 
 - Edward Boswell <thememium@gmail.com>
-
-[Compare changes](https://github.com/thememium/usechange/compare/v0.1.1...HEAD)

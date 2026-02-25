@@ -55,6 +55,11 @@ It gives you:
 
 ## Quick Start
 
+usechange provides a short alias and command shortcuts:
+
+- `usechange` and `change` are equivalent.
+- `changelog` also supports the `log` alias.
+
 ### Install usechange with uv (recommended)
 
 ```sh
@@ -70,13 +75,58 @@ pip install usechange
 ### Generate a changelog
 
 ```sh
-usechange changelog --write
+change log --write
+```
+
+### Interactive release workflow
+
+```sh
+change release
 ```
 
 ### Sync the latest release to GitHub
 
 ```sh
-usechange github release
+change github release
+```
+
+### Interactive changelog preview
+
+Example prompt for selecting optional changelog flags:
+
+```
+Select optional flags (space to select, enter to confirm):
+> [ ] --from - Start commit reference
+  [ ] --to - End commit reference
+  [ ] --dir - Path to a git repository
+  [ ] --clean [bool] - Ensure working directory is clean
+  [ ] --output - Changelog file to write
+  [ ] --write [bool] - Write changelog to CHANGELOG.md
+  [ ] --no-output [bool] - Do not write a changelog file
+  [ ] --noAuthors [bool] - Skip contributors section
+  [ ] --noDate [bool] - Omit date from header
+  [ ] --noEmojis [bool] - Omit emojis from headers
+  [ ] --hideAuthorEmail [bool] - Hide author email if no username is found
+  [ ] --bump [bool] - Determine and update version
+  [ ] -r - Release as a specific version
+  [ ] --release [bool] - Bump, tag, and release
+  [ ] --no-commit [bool] - Skip release commit
+  [ ] --no-tag [bool] - Skip release tag
+  [ ] --push [bool] - Push commits and tags
+  [ ] --no-github [bool] - Skip GitHub release sync
+  [ ] --publish [bool] - Publish after generating
+  [ ] --publishTag - Publish with a custom tag
+  [ ] --nameSuffix - Append suffix to package name
+  [ ] --versionSuffix - Append suffix to version
+  [ ] --canary - Shortcut for --bump and --versionSuffix
+  [ ] --major [bool] - Force major bump
+  [ ] --minor [bool] - Force minor bump
+  [ ] --patch [bool] - Force patch bump
+  [ ] --premajor - Force premajor bump
+  [ ] --preminor - Force preminor bump
+  [ ] --prepatch - Force prepatch bump
+  [ ] --prerelease - Force prerelease bump
+Press <space>, <tab> for multi-selection and <enter> to accept
 ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -88,27 +138,27 @@ usechange github release
 ### Generate changelog
 
 ```sh
-usechange changelog --from v0.1.0 --to HEAD --output CHANGELOG.md
+change log --from v0.1.0 --to HEAD --output CHANGELOG.md
 ```
 
 ### Version bumping
 
 ```sh
-usechange changelog --bump --write
-usechange changelog --major --write
+change log --bump --write
+change log --major --write
 ```
 
 ### Release workflow
 
 ```sh
-usechange release --yes
+change release --yes
 ```
 
 ### GitHub release sync
 
 ```sh
-usechange github release 0.2.0
-usechange github release all
+change github release 0.2.0
+change gh release all
 ```
 
 ### Configuration

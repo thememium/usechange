@@ -100,10 +100,22 @@ def run_changelog(options: ChangelogOptions) -> ChangelogResult:
         )
 
     version = _resolve_version(directory, options, config, parsed_commits)
-    compare_to_ref = config.to_ref or _version_tag(version)
+    output_path = _resolve_output_path(options, config)
+    compare_to_ref = _resolve_compare_to_ref(
+        options, config, to_ref, version, output_path
+    )
+    compare_from_ref = from_ref
+    if (
+        compare_from_ref
+        and compare_from_ref == compare_to_ref
+        and compare_to_ref != "HEAD"
+    ):
+        previous_tag = git.get_previous_tag(directory, compare_from_ref)
+        if previous_tag:
+            compare_from_ref = previous_tag
     compare_link = None
-    if from_ref:
-        compare_link = compare_url(repo_info, from_ref, compare_to_ref)
+    if compare_from_ref:
+        compare_link = compare_url(repo_info, compare_from_ref, compare_to_ref)
     date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     notes = ReleaseNotes(
         version=f"v{version}",
@@ -113,10 +125,7 @@ def run_changelog(options: ChangelogOptions) -> ChangelogResult:
         contributors=contributors,
     )
 
-    content = _merge_changelog(
-        directory, output_path=_resolve_output_path(options, config), new_notes=notes
-    )
-    output_path = _resolve_output_path(options, config)
+    content = _merge_changelog(directory, output_path=output_path, new_notes=notes)
     wrote_file = False
     if output_path:
         target_path = Path(directory) / output_path
@@ -365,6 +374,20 @@ def _resolve_output_path(
     if config.output is True:
         return "CHANGELOG.md"
     return str(config.output)
+
+
+def _resolve_compare_to_ref(
+    options: ChangelogOptions,
+    config: ChangelogConfig,
+    to_ref: str,
+    version: str,
+    output_path: str | None,
+) -> str:
+    if config.to_ref:
+        return config.to_ref
+    if output_path is None:
+        return to_ref
+    return _version_tag(version)
 
 
 def _merge_changelog(

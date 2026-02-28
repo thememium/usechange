@@ -1,12 +1,24 @@
 # Changelog
 
+## v0.1.24 (2026-02-28)
+
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.23...v0.1.24)
+
+### 🏡 Chore
+
+- **deps**: bump usecli to 0.1.46 ([7e22591](https://github.com/thememium/usechange/commit/7e225912836cf9756f6f367b086b37cb929e9b63))
+
+### Contributors
+
+- Edward Boswell <thememium@gmail.com>
+
 ## v0.1.23 (2026-02-28)
 
 [Compare changes](https://github.com/thememium/usechange/compare/v0.1.22...v0.1.23)
 
 ### 🏡 Chore
 
-- **pyproject**: bump usecli to 0.1.45 ([868e1ef](https://github.com/thememium/usechange/commit/868e1ef3f3b83561e0ed56e2cb9a4ec79a84ad94))
+- **deps**: bump usecli to 0.1.46 ([7e22591](https://github.com/thememium/usechange/commit/7e225912836cf9756f6f367b086b37cb929e9b63))
 
 ### Contributors
 

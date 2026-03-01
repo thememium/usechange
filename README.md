@@ -84,6 +84,11 @@ change log --write
 change release
 ```
 
+### Sync the latest release to GitHub
+
+```sh
+change github release
+```
 
 ### Interactive changelog preview
 
@@ -149,6 +154,12 @@ change log --major --write
 change release --yes
 ```
 
+### GitHub release sync
+
+```sh
+change github release 0.2.0
+change gh release all
+```
 
 ### Configuration
 

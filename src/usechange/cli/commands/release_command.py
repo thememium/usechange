@@ -198,34 +198,24 @@ class ReleaseCommand(BaseCommand):
         if not no_github and not no_tag:
             _ensure_gh_ready(resolved_dir)
             target_sha = _run_capture(resolved_dir, ["git", "rev-parse", tag_name])
-            target_ref, default_branch = _resolve_release_target(
-                resolved_dir, target_sha
-            )
-            if target_ref and target_ref != target_sha:
-                console.print(
-                    "Local release commit not found on origin. "
-                    f"Targeting {default_branch} for GitHub release. "
-                    "Use --push to publish local commits and tags."
-                )
             if _gh_release_exists(resolved_dir, tag_name):
                 _run(
                     resolved_dir,
                     ["gh", "release", "edit", tag_name, "--notes-file", notes_file],
                 )
             else:
-                release_args = [
-                    "gh",
-                    "release",
-                    "create",
-                    tag_name,
-                    "--notes-file",
-                    notes_file,
-                ]
-                if target_ref:
-                    release_args.extend(["--target", target_ref])
                 _run(
                     resolved_dir,
-                    release_args,
+                    [
+                        "gh",
+                        "release",
+                        "create",
+                        tag_name,
+                        "--target",
+                        target_sha,
+                        "--notes-file",
+                        notes_file,
+                    ],
                 )
         console.print(f"Release {version} completed.")
 
@@ -306,44 +296,6 @@ def _gh_release_exists(directory: str, tag_name: str) -> bool:
         text=True,
     )
     return result.returncode == 0
-
-
-def _remote_ref_exists(directory: str, ref_name: str) -> bool:
-    result = subprocess.run(
-        ["git", "rev-parse", "--quiet", "--verify", f"refs/remotes/{ref_name}"],
-        cwd=directory,
-        check=False,
-        capture_output=True,
-        text=True,
-    )
-    return result.returncode == 0
-
-
-def _commit_in_remote(directory: str, commit_sha: str, remote_ref: str) -> bool:
-    result = subprocess.run(
-        ["git", "merge-base", "--is-ancestor", commit_sha, remote_ref],
-        cwd=directory,
-        check=False,
-        capture_output=True,
-        text=True,
-    )
-    return result.returncode == 0
-
-
-def _resolve_release_target(
-    directory: str, commit_sha: str
-) -> tuple[str | None, str | None]:
-    from usechange.changelog import git
-
-    default_branch = git.get_default_branch(directory)
-    if not default_branch:
-        return None, None
-    remote_ref = f"origin/{default_branch}"
-    if _remote_ref_exists(directory, remote_ref) and _commit_in_remote(
-        directory, commit_sha, remote_ref
-    ):
-        return commit_sha, default_branch
-    return default_branch, default_branch
 
 
 def _tag_exists(directory: str, tag_name: str) -> bool:

@@ -1,5 +1,45 @@
 # Changelog
 
+## v0.1.26 (2026-03-01)
+
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.25...v0.1.26)
+
+### 🏡 Chore
+
+- bump version to 0.1.25 ([e40aafa](https://github.com/thememium/usechange/commit/e40aafa49b09236674c34854a994977e506af1de))
+
+### Other Changes
+
+- Revert "feat(cli): extend release command with new options and refactor workflow" ([c5e948c](https://github.com/thememium/usechange/commit/c5e948c2b51dfcef92ddf746de2df065aa2e1327))
+- Revert "refactor(cli): rename GithubReleaseCommand to ReleaseCommand and update imports" ([2980b48](https://github.com/thememium/usechange/commit/2980b48d6354b3281b88ac71d0ad161889e193a8))
+- Revert "docs(readme): remove obsolete GitHub release sync instructions" ([d0b6aa6](https://github.com/thememium/usechange/commit/d0b6aa6adaf3bd51c3d29d3403d9052141b53a26))
+- Revert "feat(release): add GitHub CLI check and detailed subprocess error output" ([f6ef44f](https://github.com/thememium/usechange/commit/f6ef44f01165c008c0dd957bbffbf47e1c4eac5f))
+- Revert "feat(cli): resolve GitHub release target based on remote presence" ([8a271cf](https://github.com/thememium/usechange/commit/8a271cfa75befd356e740da5bd79f30012ebeaa2))
+
+### Contributors
+
+- Edward Boswell <thememium@gmail.com>
+
+## v0.1.25 (2026-03-01)
+
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.24...v0.1.25)
+
+### 🏡 Chore
+
+- bump version to 0.1.25 ([e40aafa](https://github.com/thememium/usechange/commit/e40aafa49b09236674c34854a994977e506af1de))
+
+### Other Changes
+
+- Revert "feat(cli): extend release command with new options and refactor workflow" ([c5e948c](https://github.com/thememium/usechange/commit/c5e948c2b51dfcef92ddf746de2df065aa2e1327))
+- Revert "refactor(cli): rename GithubReleaseCommand to ReleaseCommand and update imports" ([2980b48](https://github.com/thememium/usechange/commit/2980b48d6354b3281b88ac71d0ad161889e193a8))
+- Revert "docs(readme): remove obsolete GitHub release sync instructions" ([d0b6aa6](https://github.com/thememium/usechange/commit/d0b6aa6adaf3bd51c3d29d3403d9052141b53a26))
+- Revert "feat(release): add GitHub CLI check and detailed subprocess error output" ([f6ef44f](https://github.com/thememium/usechange/commit/f6ef44f01165c008c0dd957bbffbf47e1c4eac5f))
+- Revert "feat(cli): resolve GitHub release target based on remote presence" ([8a271cf](https://github.com/thememium/usechange/commit/8a271cfa75befd356e740da5bd79f30012ebeaa2))
+
+### Contributors
+
+- Edward Boswell <thememium@gmail.com>
+
 ## v0.1.24 (2026-02-28)
 
 [Compare changes](https://github.com/thememium/usechange/compare/v0.1.23...v0.1.24)

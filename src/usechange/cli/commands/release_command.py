@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import shutil
 import subprocess
 import sys
 import tempfile
@@ -196,7 +195,6 @@ class ReleaseCommand(BaseCommand):
             if not no_tag:
                 _run(resolved_dir, ["git", "push", "origin", tag_name])
         if not no_github and not no_tag:
-            _ensure_gh_ready(resolved_dir)
             target_sha = _run_capture(resolved_dir, ["git", "rev-parse", tag_name])
             if _gh_release_exists(resolved_dir, tag_name):
                 _run(
@@ -221,17 +219,9 @@ class ReleaseCommand(BaseCommand):
 
 
 def _run(directory: str, args: list[str]) -> None:
-    result = subprocess.run(
-        args,
-        cwd=directory,
-        check=False,
-        capture_output=True,
-        text=True,
-    )
+    result = subprocess.run(args, cwd=directory, check=False)
     if result.returncode != 0:
-        details = result.stderr.strip() or result.stdout.strip()
-        suffix = f"\n{details}" if details else ""
-        raise RuntimeError(f"Command failed: {' '.join(args)}{suffix}")
+        raise RuntimeError(f"Command failed: {' '.join(args)}")
 
 
 def _run_capture(directory: str, args: list[str]) -> str:
@@ -243,29 +233,8 @@ def _run_capture(directory: str, args: list[str]) -> str:
         text=True,
     )
     if result.returncode != 0:
-        details = result.stderr.strip() or result.stdout.strip()
-        suffix = f"\n{details}" if details else ""
-        raise RuntimeError(f"Command failed: {' '.join(args)}{suffix}")
+        raise RuntimeError(f"Command failed: {' '.join(args)}")
     return result.stdout.strip()
-
-
-def _ensure_gh_ready(directory: str) -> None:
-    if not shutil.which("gh"):
-        raise RuntimeError("GitHub CLI (gh) not found. Install gh or pass --no-github.")
-    result = subprocess.run(
-        ["gh", "auth", "status", "-h", "github.com"],
-        cwd=directory,
-        check=False,
-        capture_output=True,
-        text=True,
-    )
-    if result.returncode != 0:
-        details = result.stderr.strip() or result.stdout.strip()
-        suffix = f"\n{details}" if details else ""
-        raise RuntimeError(
-            "GitHub CLI is not authenticated. Run `gh auth login` or pass --no-github."
-            + suffix
-        )
 
 
 def _extract_release_notes(changelog_content: str, tag_name: str) -> str:

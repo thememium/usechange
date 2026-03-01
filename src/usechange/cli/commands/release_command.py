@@ -6,7 +6,7 @@ import tempfile
 from dataclasses import replace
 from pathlib import Path
 
-from usecli import BaseCommand, Confirm, Option, console
+from usecli import Argument, BaseCommand, Confirm, Option, console
 
 
 class ReleaseCommand(BaseCommand):
@@ -18,7 +18,28 @@ class ReleaseCommand(BaseCommand):
 
     def handle(
         self,
+        repo_dir: str | None = Argument(
+            None, help="Repository path (positional, legacy)"
+        ),
+        from_ref: str | None = Option(None, "--from", help="Start commit reference"),
+        to_ref: str | None = Option(None, "--to", help="End commit reference"),
         directory: str | None = Option(None, "--dir", help="Path to a git repository"),
+        clean: bool = Option(
+            False, "--clean", is_flag=True, help="Ensure working directory is clean"
+        ),
+        output: str | None = Option(None, "--output", help="Changelog file to write"),
+        write_output: bool = Option(
+            True,
+            "--write",
+            is_flag=True,
+            help="Write changelog to CHANGELOG.md",
+        ),
+        no_output: bool = Option(
+            False, "--no-output", is_flag=True, help="Do not write a changelog file"
+        ),
+        no_authors: bool = Option(
+            False, "--noAuthors", is_flag=True, help="Skip contributors section"
+        ),
         yes: bool = Option(False, "--yes", "-y", help="Skip confirmation"),
         no_date: bool = Option(
             False, "--noDate", is_flag=True, help="Omit date from header"
@@ -26,50 +47,109 @@ class ReleaseCommand(BaseCommand):
         no_emojis: bool = Option(
             False, "--noEmojis", is_flag=True, help="Omit emojis from headers"
         ),
+        hide_author_email: bool = Option(
+            False,
+            "--hideAuthorEmail",
+            is_flag=True,
+            help="Hide author email if no username is found",
+        ),
+        bump: bool = Option(
+            False, "--bump", is_flag=True, help="Determine and update version"
+        ),
+        release_version: str | None = Option(
+            None, "-r", help="Release as a specific version"
+        ),
+        release: bool = Option(
+            False, "--release", is_flag=True, help="Bump, tag, and release"
+        ),
+        no_commit: bool = Option(
+            False, "--no-commit", is_flag=True, help="Skip release commit"
+        ),
+        no_tag: bool = Option(False, "--no-tag", is_flag=True, help="Skip release tag"),
+        push: bool = Option(
+            False, "--push", is_flag=True, help="Push commits and tags"
+        ),
+        no_github: bool = Option(
+            False, "--no-github", is_flag=True, help="Skip GitHub release sync"
+        ),
+        publish: bool = Option(
+            False, "--publish", is_flag=True, help="Publish after generating"
+        ),
+        publish_tag: str = Option(
+            "latest", "--publishTag", help="Publish with a custom tag"
+        ),
+        name_suffix: str | None = Option(
+            None, "--nameSuffix", help="Append suffix to package name"
+        ),
+        version_suffix: str | None = Option(
+            None, "--versionSuffix", help="Append suffix to version"
+        ),
+        canary: str | None = Option(
+            None,
+            "--canary",
+            help="Shortcut for --bump and --versionSuffix",
+        ),
+        major: bool = Option(False, "--major", is_flag=True, help="Force major bump"),
+        minor: bool = Option(False, "--minor", is_flag=True, help="Force minor bump"),
+        patch: bool = Option(False, "--patch", is_flag=True, help="Force patch bump"),
+        premajor: str | None = Option(None, "--premajor", help="Force premajor bump"),
+        preminor: str | None = Option(None, "--preminor", help="Force preminor bump"),
+        prepatch: str | None = Option(None, "--prepatch", help="Force prepatch bump"),
+        prerelease: str | None = Option(
+            None, "--prerelease", help="Force prerelease bump"
+        ),
     ) -> None:
         _ensure_src_on_path()
-        from usechange.changelog.cli.default import ChangelogOptions, run_changelog
+        from usechange.changelog.cli.default import (
+            ChangelogOptions,
+            _resolve_config_from_options,
+            _resolve_output_path,
+            run_changelog,
+        )
 
         if not yes and not Confirm.ask("Continue with release?", default=False):
             console.print("Release cancelled.")
             return
 
-        resolved_dir = str(Path(directory or ".").resolve())
-        existing_versions = _load_existing_versions(resolved_dir)
+        resolved_dir = str(Path(directory or repo_dir or ".").resolve())
+        effective_no_output = no_output or (output is None and not write_output)
         base_options = ChangelogOptions(
-            repo_dir=None,
-            from_ref=None,
-            to_ref=None,
-            directory=resolved_dir,
-            clean=False,
-            output="CHANGELOG.md",
-            no_output=False,
-            no_authors=False,
+            repo_dir=repo_dir,
+            from_ref=from_ref,
+            to_ref=to_ref,
+            directory=directory,
+            clean=clean,
+            output=output,
+            no_output=effective_no_output,
+            no_authors=no_authors,
             include_emojis=not no_emojis,
             include_date=not no_date,
-            hide_author_email=False,
-            bump=True,
-            release_version=None,
-            release=False,
-            no_commit=False,
-            no_tag=False,
-            push=False,
-            no_github=False,
-            publish=False,
-            publish_tag="latest",
-            name_suffix=None,
-            version_suffix=None,
-            canary=None,
-            major=False,
-            minor=False,
-            patch=False,
-            premajor=None,
-            preminor=None,
-            prepatch=None,
-            prerelease=None,
-            preview_next_version=False,
+            hide_author_email=hide_author_email,
+            bump=bump,
+            release_version=release_version,
+            release=release,
+            no_commit=no_commit,
+            no_tag=no_tag,
+            push=push,
+            no_github=no_github,
+            publish=publish,
+            publish_tag=publish_tag,
+            name_suffix=name_suffix,
+            version_suffix=version_suffix,
+            canary=canary,
+            major=major,
+            minor=minor,
+            patch=patch,
+            premajor=premajor,
+            preminor=preminor,
+            prepatch=prepatch,
+            prerelease=prerelease,
+            preview_next_version=True,
             update_versions=False,
         )
+        config = _resolve_config_from_options(resolved_dir, base_options)
+        output_path = _resolve_output_path(base_options, config)
+        existing_versions = _load_existing_versions(resolved_dir, output_path)
         changelog_result = run_changelog(base_options)
 
         version = changelog_result.new_version
@@ -90,46 +170,51 @@ class ReleaseCommand(BaseCommand):
         _run(resolved_dir, ["uv", "sync"])
         _run(resolved_dir, ["uv", "lock"])
 
-        _run(
-            resolved_dir,
-            [
-                "git",
-                "add",
-                "CHANGELOG.md",
-                "pyproject.toml",
-                "uv.lock",
-            ],
-        )
-        _run(resolved_dir, ["git", "commit", "-m", "chore(uv): update version"])
-        _run(resolved_dir, ["git", "tag", tag_name])
-        _run(resolved_dir, ["git", "push"])
-        _run(resolved_dir, ["git", "push", "origin", tag_name])
-
-        notes = _extract_release_notes(resolved_dir, tag_name)
+        notes = _extract_release_notes(changelog_result.content, tag_name)
         with tempfile.NamedTemporaryFile(mode="w", delete=False) as handle:
             handle.write(notes)
             notes_file = handle.name
 
-        target_sha = _run_capture(resolved_dir, ["git", "rev-parse", tag_name])
-        if _gh_release_exists(resolved_dir, tag_name):
-            _run(
-                resolved_dir,
-                ["gh", "release", "edit", tag_name, "--notes-file", notes_file],
-            )
-        else:
+        if not no_commit:
+            changelog_files = _resolve_changelog_files(resolved_dir, changelog_result)
             _run(
                 resolved_dir,
                 [
-                    "gh",
-                    "release",
-                    "create",
-                    tag_name,
-                    "--target",
-                    target_sha,
-                    "--notes-file",
-                    notes_file,
+                    "git",
+                    "add",
+                    *changelog_files,
+                    "pyproject.toml",
+                    "uv.lock",
                 ],
             )
+            _run(resolved_dir, ["git", "commit", "-m", "chore(uv): update version"])
+        if not no_tag:
+            _run(resolved_dir, ["git", "tag", tag_name])
+        if push:
+            _run(resolved_dir, ["git", "push"])
+            if not no_tag:
+                _run(resolved_dir, ["git", "push", "origin", tag_name])
+        if not no_github and not no_tag:
+            target_sha = _run_capture(resolved_dir, ["git", "rev-parse", tag_name])
+            if _gh_release_exists(resolved_dir, tag_name):
+                _run(
+                    resolved_dir,
+                    ["gh", "release", "edit", tag_name, "--notes-file", notes_file],
+                )
+            else:
+                _run(
+                    resolved_dir,
+                    [
+                        "gh",
+                        "release",
+                        "create",
+                        tag_name,
+                        "--target",
+                        target_sha,
+                        "--notes-file",
+                        notes_file,
+                    ],
+                )
         console.print(f"Release {version} completed.")
 
 
@@ -152,9 +237,8 @@ def _run_capture(directory: str, args: list[str]) -> str:
     return result.stdout.strip()
 
 
-def _extract_release_notes(directory: str, tag_name: str) -> str:
-    changelog = Path(directory) / "CHANGELOG.md"
-    lines = changelog.read_text().splitlines()
+def _extract_release_notes(changelog_content: str, tag_name: str) -> str:
+    lines = changelog_content.splitlines()
     heading = f"## {tag_name}"
     start = None
     for idx, line in enumerate(lines):
@@ -194,14 +278,35 @@ def _tag_exists(directory: str, tag_name: str) -> bool:
     return result.returncode == 0
 
 
-def _load_existing_versions(directory: str) -> set[str]:
-    changelog = Path(directory) / "CHANGELOG.md"
-    if not changelog.exists():
+def _load_existing_versions(directory: str, output_path: str | None) -> set[str]:
+    path = _resolve_changelog_path(directory, output_path)
+    if not path:
         return set()
     from usechange.changelog.markdown import parse_changelog
 
-    releases = parse_changelog(changelog.read_text())
+    releases = parse_changelog(path.read_text())
     return {release.version.lstrip("v") for release in releases}
+
+
+def _resolve_changelog_path(directory: str, output_path: str | None) -> Path | None:
+    if output_path is None:
+        candidate = Path(directory) / "CHANGELOG.md"
+    else:
+        candidate = Path(output_path)
+        if not candidate.is_absolute():
+            candidate = Path(directory) / output_path
+    return candidate if candidate.exists() else None
+
+
+def _resolve_changelog_files(directory: str, changelog_result: object) -> list[str]:
+    output_path = getattr(changelog_result, "output_path", None)
+    wrote_file = getattr(changelog_result, "wrote_file", False)
+    if not wrote_file or not output_path:
+        return []
+    path = Path(output_path)
+    if path.is_absolute():
+        return [str(path)]
+    return [str(Path(directory) / output_path)]
 
 
 def _next_available_version(

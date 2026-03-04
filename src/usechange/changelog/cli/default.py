@@ -73,6 +73,19 @@ def run_changelog(options: ChangelogOptions) -> ChangelogResult:
     resolved_dir = options.directory or options.repo_dir or "."
     directory = str(Path(resolved_dir).resolve())
 
+    if not git.has_head(directory):
+        return ChangelogResult(
+            message=(
+                "Repository has no commits yet. Create an initial commit before "
+                "generating a changelog."
+            ),
+            content="",
+            output_path=None,
+            new_version=None,
+            wrote_file=False,
+            resolved_dir=directory,
+        )
+
     if options.clean and not git.is_clean(directory):
         return ChangelogResult(
             message="Working directory is not clean.",

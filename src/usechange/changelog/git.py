@@ -35,6 +35,17 @@ def get_repo_root(directory: str) -> str | None:
     return str(Path(output))
 
 
+def has_head(directory: str) -> bool:
+    result = subprocess.run(
+        ["git", "rev-parse", "--verify", "HEAD"],
+        cwd=directory,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    return result.returncode == 0
+
+
 def is_clean(directory: str) -> bool:
     output = _run_git(directory, ["status", "--porcelain"])
     return output == ""

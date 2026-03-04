@@ -7,6 +7,8 @@ from pathlib import Path
 
 from usecli import Argument, BaseCommand, Option, console
 
+from usechange.cli.commands import print_error
+
 
 class ChangelogCommand(BaseCommand):
     def signature(self) -> str:
@@ -138,6 +140,13 @@ class ChangelogCommand(BaseCommand):
             preview_next_version=True,
         )
         result = run_changelog(options)
+        if (
+            not result.content
+            and result.output_path is None
+            and result.new_version is None
+        ):
+            print_error(result.message)
+            return
         if result.output_path:
             console.print(result.message)
         elif result.content:

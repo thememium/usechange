@@ -8,6 +8,8 @@ from pathlib import Path
 
 from usecli import BaseCommand, Confirm, Option, console
 
+from usechange.cli.commands import print_error
+
 
 class ReleaseCommand(BaseCommand):
     def signature(self) -> str:
@@ -37,7 +39,7 @@ class ReleaseCommand(BaseCommand):
 
         resolved_dir = str(Path(directory or ".").resolve())
         if not git.has_head(resolved_dir):
-            console.print(
+            print_error(
                 "Repository has no commits yet. Create an initial commit before "
                 "running a release."
             )

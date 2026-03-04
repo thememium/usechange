@@ -28,6 +28,7 @@ class ReleaseCommand(BaseCommand):
         ),
     ) -> None:
         _ensure_src_on_path()
+        from usechange.changelog import git
         from usechange.changelog.cli.default import ChangelogOptions, run_changelog
 
         if not yes and not Confirm.ask("Continue with release?", default=False):
@@ -35,6 +36,12 @@ class ReleaseCommand(BaseCommand):
             return
 
         resolved_dir = str(Path(directory or ".").resolve())
+        if not git.has_head(resolved_dir):
+            console.print(
+                "Repository has no commits yet. Create an initial commit before "
+                "running a release."
+            )
+            return
         existing_versions = _load_existing_versions(resolved_dir)
         base_options = ChangelogOptions(
             repo_dir=None,

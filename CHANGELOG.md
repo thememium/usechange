@@ -1,5 +1,28 @@
 # Changelog
 
+## v0.1.28 (2026-03-04)
+
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.27...v0.1.28)
+
+### 🚀 Enhancements
+
+- **cli**: add print_error helper for formatted CLI error output ([984428d](https://github.com/thememium/usechange/commit/984428d13232d075c400a050006b764198905f36))
+- **release**: add guard for empty repository before running a release ([15e907d](https://github.com/thememium/usechange/commit/15e907d9c5825a7391c600a42d6fef4f37e66070))
+- **changelog**: add guard for repository with no commits ([f7215ca](https://github.com/thememium/usechange/commit/f7215cae051ea5754c9a55e73f6d1f27d435dc65))
+- **git**: add has_head utility and corresponding tests ([5629df5](https://github.com/thememium/usechange/commit/5629df5fab24060c547d2850ae235a93e96e7dbc))
+
+### 🩹 Fixes
+
+- **cli**: improve error handling for changelog and release commands ([d0b056d](https://github.com/thememium/usechange/commit/d0b056d02392898ee4c7bd5c5a3511065c8bd8fd))
+
+### 🏡 Chore
+
+- **pyproject.toml**: bump usecli dependency to0.1.48 ([14b8ed4](https://github.com/thememium/usechange/commit/14b8ed4f750db9828142144fb23ae4ce98ac9663))
+
+### Contributors
+
+- Edward Boswell <thememium@gmail.com>
+
 ## v0.1.27 (2026-03-04)
 
 [Compare changes](https://github.com/thememium/usechange/compare/v0.1.26...v0.1.27)

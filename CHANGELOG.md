@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.1.27 (2026-03-04)
+
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.26...v0.1.27)
+
+### 📖 Documentation
+
+- **usecli.config.toml**: update description to reflect changelog generation ([6f37c17](https://github.com/thememium/usechange/commit/6f37c1766345bc6e4e3c458cd78b0540c76e1cf7))
+
+### 🏡 Chore
+
+- **deps**: bump usecli to 0.1.47 ([d26dca0](https://github.com/thememium/usechange/commit/d26dca00ba63170e9bfd591c485d1b6470ed4065))
+
+### Contributors
+
+- Edward Boswell <thememium@gmail.com>
+
 ## v0.1.26 (2026-03-01)
 
 [Compare changes](https://github.com/thememium/usechange/compare/v0.1.25...v0.1.26)

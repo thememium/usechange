@@ -1,12 +1,32 @@
 # Changelog
 
+## v0.1.32 (2026-06-03)
+
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.31...v0.1.32)
+
+### 🏡 Chore
+
+- **deps**: bump usecli to 0.1.53 ([2a9a41c](https://github.com/thememium/usechange/commit/2a9a41c7de44c75ef5d263c076fe3b817b54f261))
+
+### 🤖 CI
+
+- **publish.yml**: add --no-cache flag to smoke tests ([194aa4b](https://github.com/thememium/usechange/commit/194aa4ba67a66625cb134a4ca305b8aa81764dfd))
+
+### Contributors
+
+- Edward Boswell <thememium@gmail.com>
+
 ## v0.1.31 (2026-06-03)
 
 [Compare changes](https://github.com/thememium/usechange/compare/v0.1.30...v0.1.31)
 
 ### 🏡 Chore
 
-- **python**: bump usecli to 0.1.52 ([bb464f7](https://github.com/thememium/usechange/commit/bb464f7c1b7382e718273a0b1f0a55508fc6656f))
+- **deps**: bump usecli to 0.1.53 ([2a9a41c](https://github.com/thememium/usechange/commit/2a9a41c7de44c75ef5d263c076fe3b817b54f261))
+
+### 🤖 CI
+
+- **publish.yml**: add --no-cache flag to smoke tests ([194aa4b](https://github.com/thememium/usechange/commit/194aa4ba67a66625cb134a4ca305b8aa81764dfd))
 
 ### Contributors
 

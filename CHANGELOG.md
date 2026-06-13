@@ -1,16 +1,24 @@
 # Changelog
 
+## v0.1.38 (2026-06-13)
+
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.37...v0.1.38)
+
+### 🏡 Chore
+
+- **deps**: bump usecli from 0.1.60 to 0.1.61 ([b6e2921](https://github.com/thememium/usechange/commit/b6e2921ad1f2c8ce6f9702cc3a9b8184b33f0a83))
+
+### Contributors
+
+- Edward Boswell <thememium@gmail.com>
+
 ## v0.1.37 (2026-06-13)
 
 [Compare changes](https://github.com/thememium/usechange/compare/v0.1.36...v0.1.37)
 
 ### 🏡 Chore
 
-- **pyproject.toml**: bump usecli to 0.1.60 ([cca3156](https://github.com/thememium/usechange/commit/cca31567e59f8368673fb5f417d53fd8d9f7401c))
-
-### 🎨 Styles
-
-- **pyproject.toml**: format dependencies list to multiline array ([ba09d48](https://github.com/thememium/usechange/commit/ba09d481255a04230f829cce6107741694adc652))
+- **deps**: bump usecli from 0.1.60 to 0.1.61 ([b6e2921](https://github.com/thememium/usechange/commit/b6e2921ad1f2c8ce6f9702cc3a9b8184b33f0a83))
 
 ### Contributors
 

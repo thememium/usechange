@@ -1,13 +1,36 @@
 # Changelog
 
+## v0.1.41 (2026-06-13)
+
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.39...v0.1.41)
+
+### 🏡 Chore
+
+- **pyproject**: bump usecli to 0.1.66 ([dc77138](https://github.com/thememium/usechange/commit/dc771389a538491c5b3fbb84bd74dfd6699d39ab))
+
+### Contributors
+
+- Edward Boswell <thememium@gmail.com>
+
+## v0.1.40 (2026-06-13)
+
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.39...v0.1.40)
+
+### 🏡 Chore
+
+- **pyproject**: bump usecli to 0.1.66 ([dc77138](https://github.com/thememium/usechange/commit/dc771389a538491c5b3fbb84bd74dfd6699d39ab))
+
+### Contributors
+
+- Edward Boswell <thememium@gmail.com>
+
 ## v0.1.39 (2026-06-13)
 
 [Compare changes](https://github.com/thememium/usechange/compare/v0.1.38...v0.1.39)
 
 ### 🏡 Chore
 
-- **deps**: bump usecli from 0.1.64 to 0.1.65 ([b4a86b2](https://github.com/thememium/usechange/commit/b4a86b21e746f73769ad44874794278a5b396596))
-- **pyproject**: bump usecli to 0.1.64 ([5cd28bd](https://github.com/thememium/usechange/commit/5cd28bdf89472c991b9c1e36a108aa8ffc0ea7ff))
+- **pyproject**: bump usecli to 0.1.66 ([dc77138](https://github.com/thememium/usechange/commit/dc771389a538491c5b3fbb84bd74dfd6699d39ab))
 
 ### Contributors
 

@@ -53,6 +53,16 @@ def test_load_gh_token_with_quoted_token(tmp_path: Path) -> None:
     assert token == "ghp_quoted"
 
 
+def test_load_gh_token_with_empty_lines(tmp_path: Path) -> None:
+    gh_dir = tmp_path / ".config" / "gh"
+    gh_dir.mkdir(parents=True)
+    hosts = gh_dir / "hosts.yml"
+    hosts.write_text("github.com:\n\n    oauth_token: ghp_test123\n")
+    with patch.object(Path, "home", return_value=tmp_path):
+        token = _load_gh_token()
+    assert token == "ghp_test123"
+
+
 def test_load_gh_token_wrong_section(tmp_path: Path) -> None:
     gh_dir = tmp_path / ".config" / "gh"
     gh_dir.mkdir(parents=True)

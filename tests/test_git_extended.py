@@ -274,3 +274,39 @@ def test_get_log_body_and_references(tmp_path: Path) -> None:
 def test_get_default_branch_no_remote(tmp_path: Path) -> None:
     _init_repo(tmp_path)
     assert get_default_branch(str(tmp_path)) is None
+
+
+def test_get_default_branch_with_remote(tmp_path: Path) -> None:
+    bare = tmp_path / "bare.git"
+    bare.mkdir()
+    subprocess.run(
+        ["git", "init", "--bare", str(bare)],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    _init_repo(tmp_path)
+    _make_commit(tmp_path, "feat: initial")
+    subprocess.run(
+        ["git", "remote", "add", "origin", str(bare)],
+        cwd=tmp_path,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    subprocess.run(
+        ["git", "push", "-u", "origin", "master"],
+        cwd=tmp_path,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    subprocess.run(
+        ["git", "remote", "set-head", "origin", "master"],
+        cwd=tmp_path,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    branch = get_default_branch(str(tmp_path))
+    assert branch == "master"

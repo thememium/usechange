@@ -863,3 +863,52 @@ def test_run_changelog_to_ref(tmp_path: Path) -> None:
     options = _default_options(directory=str(tmp_path), to_ref=sha, no_output=True)
     result = run_changelog(options)
     assert "first" in result.content
+
+
+def test_run_changelog_previous_tag_fallback(tmp_path: Path) -> None:
+    """When from_ref == compare_to_ref, should use previous tag for comparison."""
+    _init_repo(tmp_path)
+    _make_commit(tmp_path, "feat: first")
+    subprocess.run(
+        ["git", "tag", "v0.1.0"],
+        cwd=tmp_path,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    _make_commit(tmp_path, "feat: second")
+    # No new tag — latest tag is v0.1.0, version will be 0.1.0 (same as tag)
+    # This triggers the previous tag fallback (lines 131-133)
+    options = _default_options(
+        directory=str(tmp_path),
+        no_output=False,
+        output="CHANGELOG.md",
+        include_date=False,
+    )
+    result = run_changelog(options)
+    assert result.new_version is not None
+
+
+def test_run_changelog_canary_specific_value(tmp_path: Path) -> None:
+    _init_repo(tmp_path)
+    _make_commit(tmp_path, "feat: initial")
+    pyproject = tmp_path / "pyproject.toml"
+    pyproject.write_text('name = "test"\nversion = "1.0.0"\n')
+    options = _default_options(
+        directory=str(tmp_path), canary="beta", no_output=True, bump=True
+    )
+    result = run_changelog(options)
+    assert result.new_version is not None
+    assert "beta" in result.new_version
+
+
+def test_run_changelog_version_suffix_true(tmp_path: Path) -> None:
+    _init_repo(tmp_path)
+    _make_commit(tmp_path, "feat: initial")
+    pyproject = tmp_path / "pyproject.toml"
+    pyproject.write_text('name = "test"\nversion = "1.0.0"\n')
+    options = _default_options(
+        directory=str(tmp_path), version_suffix="true", no_output=True, bump=True
+    )
+    result = run_changelog(options)
+    assert result.new_version is not None

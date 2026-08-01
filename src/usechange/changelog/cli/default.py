@@ -238,7 +238,7 @@ def _group_commits(
         grouped.setdefault(title, []).append(item)
 
     ordered_sections: list[ChangeSection] = []
-    for type_key, config in types.items():
+    for config in types.values():
         if config.title in grouped:
             ordered_sections.append(
                 ChangeSection(title=config.title, items=grouped[config.title])

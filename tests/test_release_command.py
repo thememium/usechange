@@ -16,8 +16,8 @@ from usechange.cli.commands.release_command import (
     _tag_exists,
 )
 
-
 # --- _run ---
+
 
 def test_run_success(tmp_path: Path) -> None:
     _run(str(tmp_path), ["echo", "hello"])
@@ -33,6 +33,7 @@ def test_run_failure_raises(tmp_path: Path) -> None:
 
 # --- _run_capture ---
 
+
 def test_run_capture_success(tmp_path: Path) -> None:
     result = _run_capture(str(tmp_path), ["echo", "hello"])
     assert result == "hello"
@@ -47,6 +48,7 @@ def test_run_capture_failure_raises(tmp_path: Path) -> None:
 
 
 # --- _extract_release_notes ---
+
 
 def test_extract_release_notes(tmp_path: Path) -> None:
     changelog = tmp_path / "CHANGELOG.md"
@@ -73,6 +75,7 @@ def test_extract_release_notes_missing(tmp_path: Path) -> None:
 
 # --- _gh_release_exists ---
 
+
 @patch("usechange.cli.commands.release_command.subprocess.run")
 def test_gh_release_exists_true(mock_run: MagicMock) -> None:
     mock_run.return_value = MagicMock(returncode=0)
@@ -87,23 +90,70 @@ def test_gh_release_exists_false(mock_run: MagicMock) -> None:
 
 # --- _tag_exists ---
 
+
 def test_tag_exists_true(tmp_path: Path) -> None:
-    subprocess.run(["git", "init"], cwd=tmp_path, check=True, capture_output=True, text=True)
-    subprocess.run(["git", "config", "user.email", "t@t.com"], cwd=tmp_path, check=True, capture_output=True, text=True)
-    subprocess.run(["git", "config", "user.name", "T"], cwd=tmp_path, check=True, capture_output=True, text=True)
+    subprocess.run(
+        ["git", "init"], cwd=tmp_path, check=True, capture_output=True, text=True
+    )
+    subprocess.run(
+        ["git", "config", "user.email", "t@t.com"],
+        cwd=tmp_path,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    subprocess.run(
+        ["git", "config", "user.name", "T"],
+        cwd=tmp_path,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
     (tmp_path / "f.txt").write_text("x")
-    subprocess.run(["git", "add", "f.txt"], cwd=tmp_path, check=True, capture_output=True, text=True)
-    subprocess.run(["git", "-c", "user.name=T", "-c", "user.email=t@t.com", "commit", "-m", "init", "-m", "body"], cwd=tmp_path, check=True, capture_output=True, text=True)
-    subprocess.run(["git", "tag", "v1.0.0"], cwd=tmp_path, check=True, capture_output=True, text=True)
+    subprocess.run(
+        ["git", "add", "f.txt"],
+        cwd=tmp_path,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    subprocess.run(
+        [
+            "git",
+            "-c",
+            "user.name=T",
+            "-c",
+            "user.email=t@t.com",
+            "commit",
+            "-m",
+            "init",
+            "-m",
+            "body",
+        ],
+        cwd=tmp_path,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    subprocess.run(
+        ["git", "tag", "v1.0.0"],
+        cwd=tmp_path,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
     assert _tag_exists(str(tmp_path), "v1.0.0") is True
 
 
 def test_tag_exists_false(tmp_path: Path) -> None:
-    subprocess.run(["git", "init"], cwd=tmp_path, check=True, capture_output=True, text=True)
+    subprocess.run(
+        ["git", "init"], cwd=tmp_path, check=True, capture_output=True, text=True
+    )
     assert _tag_exists(str(tmp_path), "v1.0.0") is False
 
 
 # --- _load_existing_versions ---
+
 
 def test_load_existing_versions(tmp_path: Path) -> None:
     changelog = tmp_path / "CHANGELOG.md"
@@ -120,20 +170,66 @@ def test_load_existing_versions_no_file(tmp_path: Path) -> None:
 
 # --- _next_available_version ---
 
+
 def test_next_available_version_no_conflict(tmp_path: Path) -> None:
-    subprocess.run(["git", "init"], cwd=tmp_path, check=True, capture_output=True, text=True)
+    subprocess.run(
+        ["git", "init"], cwd=tmp_path, check=True, capture_output=True, text=True
+    )
     result = _next_available_version(str(tmp_path), "1.0.0", set())
     assert result == "1.0.0"
 
 
 def test_next_available_version_with_conflict(tmp_path: Path) -> None:
-    subprocess.run(["git", "init"], cwd=tmp_path, check=True, capture_output=True, text=True)
-    subprocess.run(["git", "config", "user.email", "t@t.com"], cwd=tmp_path, check=True, capture_output=True, text=True)
-    subprocess.run(["git", "config", "user.name", "T"], cwd=tmp_path, check=True, capture_output=True, text=True)
+    subprocess.run(
+        ["git", "init"], cwd=tmp_path, check=True, capture_output=True, text=True
+    )
+    subprocess.run(
+        ["git", "config", "user.email", "t@t.com"],
+        cwd=tmp_path,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    subprocess.run(
+        ["git", "config", "user.name", "T"],
+        cwd=tmp_path,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
     (tmp_path / "f.txt").write_text("x")
-    subprocess.run(["git", "add", "f.txt"], cwd=tmp_path, check=True, capture_output=True, text=True)
-    subprocess.run(["git", "-c", "user.name=T", "-c", "user.email=t@t.com", "commit", "-m", "init", "-m", "body"], cwd=tmp_path, check=True, capture_output=True, text=True)
-    subprocess.run(["git", "tag", "v1.0.0"], cwd=tmp_path, check=True, capture_output=True, text=True)
+    subprocess.run(
+        ["git", "add", "f.txt"],
+        cwd=tmp_path,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    subprocess.run(
+        [
+            "git",
+            "-c",
+            "user.name=T",
+            "-c",
+            "user.email=t@t.com",
+            "commit",
+            "-m",
+            "init",
+            "-m",
+            "body",
+        ],
+        cwd=tmp_path,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    subprocess.run(
+        ["git", "tag", "v1.0.0"],
+        cwd=tmp_path,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
     result = _next_available_version(str(tmp_path), "1.0.0", set())
     assert result == "1.0.1"
 

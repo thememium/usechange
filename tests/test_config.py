@@ -6,13 +6,8 @@ import json
 import os
 from pathlib import Path
 
-import tomli as tomllib
-
 from usechange.changelog.config import (
     ChangelogConfig,
-    PublishConfig,
-    TemplatesConfig,
-    TypeConfig,
     _load_config_payload,
     _load_dotenv,
     _merge_types,
@@ -24,8 +19,8 @@ from usechange.changelog.config import (
     resolve_config,
 )
 
-
 # --- default_types / get_default_config ---
+
 
 def test_default_types_has_feat() -> None:
     types = default_types()
@@ -45,6 +40,7 @@ def test_get_default_config_returns_changelog_config() -> None:
 
 
 # --- resolve_config ---
+
 
 def test_resolve_config_no_overrides() -> None:
     config = resolve_config()
@@ -69,6 +65,7 @@ def test_resolve_config_ignores_unknown_keys() -> None:
 
 
 # --- _merge_types ---
+
 
 def test_merge_types_no_overrides() -> None:
     defaults = default_types()
@@ -108,6 +105,7 @@ def test_merge_types_override_no_semver() -> None:
 
 # --- _read_toml / _read_json ---
 
+
 def test_read_toml_existing(tmp_path: Path) -> None:
     path = tmp_path / "test.toml"
     path.write_text('[tool.changelog]\nfrom = "v1.0.0"\n')
@@ -130,6 +128,7 @@ def test_read_json_missing(tmp_path: Path) -> None:
 
 
 # --- _load_dotenv ---
+
 
 def test_load_dotenv_sets_env(tmp_path: Path) -> None:
     env_file = tmp_path / ".env"
@@ -157,7 +156,7 @@ def test_load_dotenv_skips_no_equals(tmp_path: Path) -> None:
 
 def test_load_dotenv_strips_quotes(tmp_path: Path) -> None:
     env_file = tmp_path / ".env"
-    env_file.write_text('QUOTED="double"\nSINGLE=\'single\'\n')
+    env_file.write_text("QUOTED=\"double\"\nSINGLE='single'\n")
     _load_dotenv(env_file)
     assert os.environ.get("QUOTED") == "double"
     assert os.environ.get("SINGLE") == "single"
@@ -179,6 +178,7 @@ def test_load_dotenv_uses_setdefault(tmp_path: Path) -> None:
 
 
 # --- _load_config_payload ---
+
 
 def test_load_config_payload_json(tmp_path: Path) -> None:
     config_file = tmp_path / "changelog.config.json"
@@ -230,6 +230,7 @@ def test_load_config_payload_pyproject_tool_not_dict(tmp_path: Path) -> None:
 
 # --- load_config ---
 
+
 def test_load_config_defaults(tmp_path: Path) -> None:
     config = load_config(str(tmp_path))
     assert config.cwd == str(tmp_path)
@@ -246,7 +247,9 @@ def test_load_config_from_json(tmp_path: Path) -> None:
 
 def test_load_config_types_override(tmp_path: Path) -> None:
     config_file = tmp_path / "changelog.config.json"
-    config_file.write_text(json.dumps({"types": {"custom": {"title": "Custom", "semver": "patch"}}}))
+    config_file.write_text(
+        json.dumps({"types": {"custom": {"title": "Custom", "semver": "patch"}}})
+    )
     config = load_config(str(tmp_path))
     assert "custom" in config.types
 
@@ -267,7 +270,9 @@ def test_load_config_repo_string(tmp_path: Path) -> None:
 
 def test_load_config_publish(tmp_path: Path) -> None:
     config_file = tmp_path / "changelog.config.json"
-    config_file.write_text(json.dumps({"publish": {"tag": "next", "private": True, "args": ["--dry-run"]}}))
+    config_file.write_text(
+        json.dumps({"publish": {"tag": "next", "private": True, "args": ["--dry-run"]}})
+    )
     config = load_config(str(tmp_path))
     assert config.publish.tag == "next"
     assert config.publish.private is True
@@ -276,7 +281,17 @@ def test_load_config_publish(tmp_path: Path) -> None:
 
 def test_load_config_templates(tmp_path: Path) -> None:
     config_file = tmp_path / "changelog.config.json"
-    config_file.write_text(json.dumps({"templates": {"commitMessage": "release: v{{newVersion}}", "tagMessage": "tag: v{{newVersion}}", "tagBody": "body: v{{newVersion}}"}}))
+    config_file.write_text(
+        json.dumps(
+            {
+                "templates": {
+                    "commitMessage": "release: v{{newVersion}}",
+                    "tagMessage": "tag: v{{newVersion}}",
+                    "tagBody": "body: v{{newVersion}}",
+                }
+            }
+        )
+    )
     config = load_config(str(tmp_path))
     assert config.templates.commit_message == "release: v{{newVersion}}"
 

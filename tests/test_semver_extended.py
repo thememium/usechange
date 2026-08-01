@@ -22,6 +22,7 @@ class Commit:
 
 # --- _parse_version ---
 
+
 def test_parse_version_basic() -> None:
     major, minor, patch, pre = _parse_version("1.2.3")
     assert (major, minor, patch, pre) == (1, 2, 3, None)
@@ -39,7 +40,7 @@ def test_parse_version_metadata() -> None:
 
 
 def test_parse_version_prerelease_and_metadata() -> None:
-    major, minor, patch, pre = _parse_version("1.2.3-beta.1+build")
+    _major, _minor, _patch, pre = _parse_version("1.2.3-beta.1+build")
     assert pre == "beta.1"
 
 
@@ -52,6 +53,7 @@ def test_parse_version_invalid() -> None:
 
 
 # --- bump_version edge cases ---
+
 
 def test_bump_version_invalid_returns_original() -> None:
     assert bump_version("invalid", "major", None) == "invalid"
@@ -113,6 +115,7 @@ def test_bump_version_prepatch_no_prerelease_id() -> None:
 
 # --- _next_base_for_bump edge cases ---
 
+
 def test_next_base_for_bump_zero_zero() -> None:
     assert _next_base_for_bump(0, 0, 0, "patch") == (0, 0, 1)
 
@@ -143,6 +146,7 @@ def test_next_base_for_bump_one_patch() -> None:
 
 # --- _bump_prerelease edge cases ---
 
+
 def test_bump_prerelease_no_existing() -> None:
     assert _bump_prerelease(None, None) == "rc.0"
 
@@ -169,6 +173,7 @@ def test_bump_prerelease_non_digit_tail() -> None:
 
 
 # --- determine_bump edge cases ---
+
 
 def test_determine_bump_empty_commits() -> None:
     types = {"feat": TypeConfig(title="F", semver="minor")}

@@ -46,8 +46,16 @@ def test_render_release_empty_sections() -> None:
 
 def test_render_changelog_multiple() -> None:
     entries = [
-        ReleaseNotes(version="v2.0.0", date=None, sections=[ChangeSection(title="F", items=["A"])]),
-        ReleaseNotes(version="v1.0.0", date=None, sections=[ChangeSection(title="F", items=["B"])]),
+        ReleaseNotes(
+            version="v2.0.0",
+            date=None,
+            sections=[ChangeSection(title="F", items=["A"])],
+        ),
+        ReleaseNotes(
+            version="v1.0.0",
+            date=None,
+            sections=[ChangeSection(title="F", items=["B"])],
+        ),
     ]
     content = render_changelog(entries)
     assert "# Changelog" in content
@@ -86,9 +94,7 @@ def test_parse_changelog_with_contributors() -> None:
 
 def test_parse_changelog_multiple_releases() -> None:
     content = (
-        "# Changelog\n\n"
-        "## v2.0.0\n\n### F\n\n- B\n\n"
-        "## v1.0.0\n\n### F\n\n- A\n\n"
+        "# Changelog\n\n## v2.0.0\n\n### F\n\n- B\n\n## v1.0.0\n\n### F\n\n- A\n\n"
     )
     releases = parse_changelog(content)
     assert len(releases) == 2

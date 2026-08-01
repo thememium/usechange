@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import subprocess
 from pathlib import Path
-from unittest.mock import patch
 
 from usechange.changelog.config import RepoConfig
 from usechange.changelog.repo import (
@@ -16,19 +15,28 @@ from usechange.changelog.repo import (
     resolve_repo,
 )
 
-
 # --- _normalize_remote_url ---
 
+
 def test_normalize_ssh_url() -> None:
-    assert _normalize_remote_url("git@github.com:user/repo.git") == "https://github.com/user/repo"
+    assert (
+        _normalize_remote_url("git@github.com:user/repo.git")
+        == "https://github.com/user/repo"
+    )
 
 
 def test_normalize_https_url() -> None:
-    assert _normalize_remote_url("https://github.com/user/repo.git") == "https://github.com/user/repo"
+    assert (
+        _normalize_remote_url("https://github.com/user/repo.git")
+        == "https://github.com/user/repo"
+    )
 
 
 def test_normalize_http_to_https() -> None:
-    assert _normalize_remote_url("http://github.com/user/repo") == "https://github.com/user/repo"
+    assert (
+        _normalize_remote_url("http://github.com/user/repo")
+        == "https://github.com/user/repo"
+    )
 
 
 def test_normalize_empty_string() -> None:
@@ -40,10 +48,14 @@ def test_normalize_whitespace_only() -> None:
 
 
 def test_normalize_plain_https_no_suffix() -> None:
-    assert _normalize_remote_url("https://gitlab.com/org/project") == "https://gitlab.com/org/project"
+    assert (
+        _normalize_remote_url("https://gitlab.com/org/project")
+        == "https://gitlab.com/org/project"
+    )
 
 
 # --- _parse_repo ---
+
 
 def test_parse_github_ssh() -> None:
     info = _parse_repo("git@github.com:user/repo.git")
@@ -90,6 +102,7 @@ def test_parse_non_url() -> None:
 
 # --- resolve_repo ---
 
+
 def test_resolve_repo_with_repo_info() -> None:
     existing = RepoInfo(domain="github.com", repo="a/b", provider="github")
     assert resolve_repo(existing) is existing
@@ -121,10 +134,15 @@ def test_resolve_repo_with_none() -> None:
 
 
 def test_resolve_repo_with_directory(tmp_path: Path) -> None:
-    subprocess.run(["git", "init"], cwd=tmp_path, check=True, capture_output=True, text=True)
+    subprocess.run(
+        ["git", "init"], cwd=tmp_path, check=True, capture_output=True, text=True
+    )
     subprocess.run(
         ["git", "remote", "add", "origin", "git@github.com:test-org/test-repo.git"],
-        cwd=tmp_path, check=True, capture_output=True, text=True,
+        cwd=tmp_path,
+        check=True,
+        capture_output=True,
+        text=True,
     )
     info = resolve_repo(None, directory=str(tmp_path))
     assert info is not None
@@ -133,13 +151,16 @@ def test_resolve_repo_with_directory(tmp_path: Path) -> None:
 
 
 def test_resolve_repo_directory_no_remote(tmp_path: Path) -> None:
-    subprocess.run(["git", "init"], cwd=tmp_path, check=True, capture_output=True, text=True)
+    subprocess.run(
+        ["git", "init"], cwd=tmp_path, check=True, capture_output=True, text=True
+    )
     info = resolve_repo(None, directory=str(tmp_path))
     # No remote set, so git remote get-url origin will fail
     assert info is None
 
 
 # --- commit_url / compare_url ---
+
 
 def test_commit_url_with_valid_info() -> None:
     info = RepoInfo(domain="github.com", repo="user/repo", provider="github")
@@ -157,7 +178,10 @@ def test_commit_url_with_missing_domain() -> None:
 
 def test_compare_url_with_valid_info() -> None:
     info = RepoInfo(domain="github.com", repo="user/repo", provider="github")
-    assert compare_url(info, "v1.0.0", "v2.0.0") == "https://github.com/user/repo/compare/v1.0.0...v2.0.0"
+    assert (
+        compare_url(info, "v1.0.0", "v2.0.0")
+        == "https://github.com/user/repo/compare/v1.0.0...v2.0.0"
+    )
 
 
 def test_compare_url_with_none_info() -> None:

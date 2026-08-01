@@ -20,7 +20,7 @@ class GithubReleaseCommand(BaseCommand):
 
     def handle(
         self,
-        versions: list[str] | None = Argument(None, help="Versions or 'all' to sync"),
+        versions: list[str] | None = Argument(None, help="Versions or 'all' to sync"),  # noqa: B008
         directory: str | None = Option(None, "--dir", help="Path to a git repository"),
         token: str | None = Option(None, "--token", help="GitHub token override"),
     ) -> None:

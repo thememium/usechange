@@ -11,10 +11,10 @@ from usechange.changelog.cli.gh_release import (
     _resolve_versions,
     run_github_release,
 )
-from usechange.changelog.markdown import ChangeSection, ReleaseNotes
-
+from usechange.changelog.markdown import ReleaseNotes
 
 # --- _resolve_versions ---
+
 
 def test_resolve_versions_all() -> None:
     releases = [
@@ -56,6 +56,7 @@ def test_resolve_versions_no_match_raises() -> None:
 
 # --- _load_changelog ---
 
+
 def test_load_changelog_local_file(tmp_path: Path) -> None:
     changelog = tmp_path / "CHANGELOG.md"
     changelog.write_text("# Changelog\n\n## v1.0.0\n\n### Features\n\n- Thing\n\n")
@@ -66,9 +67,14 @@ def test_load_changelog_local_file(tmp_path: Path) -> None:
 @patch("usechange.changelog.cli.gh_release.resolve_repo")
 @patch("usechange.changelog.cli.gh_release.git.get_default_branch")
 @patch("usechange.changelog.cli.gh_release.urllib.request.urlopen")
-def test_load_changelog_fetch_from_github(mock_urlopen, mock_branch, mock_repo, tmp_path: Path) -> None:
+def test_load_changelog_fetch_from_github(
+    mock_urlopen, mock_branch, mock_repo, tmp_path: Path
+) -> None:
     from usechange.changelog.repo import RepoInfo
-    mock_repo.return_value = RepoInfo(domain="github.com", repo="user/repo", provider="github")
+
+    mock_repo.return_value = RepoInfo(
+        domain="github.com", repo="user/repo", provider="github"
+    )
     mock_branch.return_value = "main"
     mock_response = MagicMock()
     mock_response.read.return_value = b"# Changelog\n\n## v1.0.0\n"
@@ -93,12 +99,20 @@ def test_load_changelog_no_repo_raises(mock_repo, tmp_path: Path) -> None:
 @patch("usechange.changelog.cli.gh_release.resolve_repo")
 @patch("usechange.changelog.cli.gh_release.git.get_default_branch")
 @patch("usechange.changelog.cli.gh_release.urllib.request.urlopen")
-def test_load_changelog_github_404_raises(mock_urlopen, mock_branch, mock_repo, tmp_path: Path) -> None:
+def test_load_changelog_github_404_raises(
+    mock_urlopen, mock_branch, mock_repo, tmp_path: Path
+) -> None:
     import urllib.error
+
     from usechange.changelog.repo import RepoInfo
-    mock_repo.return_value = RepoInfo(domain="github.com", repo="user/repo", provider="github")
+
+    mock_repo.return_value = RepoInfo(
+        domain="github.com", repo="user/repo", provider="github"
+    )
     mock_branch.return_value = "main"
-    mock_urlopen.side_effect = urllib.error.HTTPError(url="", code=404, msg="", hdrs=None, fp=None)
+    mock_urlopen.side_effect = urllib.error.HTTPError(
+        url="", code=404, msg="", hdrs=MagicMock(), fp=None
+    )
     try:
         _load_changelog(str(tmp_path))
         assert False, "Should have raised"
@@ -108,11 +122,15 @@ def test_load_changelog_github_404_raises(mock_urlopen, mock_branch, mock_repo, 
 
 # --- run_github_release ---
 
+
 @patch("usechange.changelog.cli.gh_release.sync_release")
 @patch("usechange.changelog.cli.gh_release.resolve_repo")
 def test_run_github_release_basic(mock_repo, mock_sync, tmp_path: Path) -> None:
     from usechange.changelog.repo import RepoInfo
-    mock_repo.return_value = RepoInfo(domain="github.com", repo="user/repo", provider="github")
+
+    mock_repo.return_value = RepoInfo(
+        domain="github.com", repo="user/repo", provider="github"
+    )
     mock_sync.return_value = True
 
     changelog = tmp_path / "CHANGELOG.md"
@@ -127,13 +145,16 @@ def test_run_github_release_basic(mock_repo, mock_sync, tmp_path: Path) -> None:
 @patch("usechange.changelog.cli.gh_release.resolve_repo")
 def test_run_github_release_all(mock_repo, mock_sync, tmp_path: Path) -> None:
     from usechange.changelog.repo import RepoInfo
-    mock_repo.return_value = RepoInfo(domain="github.com", repo="user/repo", provider="github")
+
+    mock_repo.return_value = RepoInfo(
+        domain="github.com", repo="user/repo", provider="github"
+    )
     mock_sync.return_value = True
 
     changelog = tmp_path / "CHANGELOG.md"
     changelog.write_text("# Changelog\n\n## v2.0.0\n\n- B\n\n## v1.0.0\n\n- A\n\n")
     options = GhReleaseOptions(versions=["all"], directory=str(tmp_path), token="tok")
-    result = run_github_release(options)
+    run_github_release(options)
     assert mock_sync.call_count == 2
 
 

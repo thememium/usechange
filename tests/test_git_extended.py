@@ -20,14 +20,22 @@ from usechange.changelog.git import (
 
 
 def _init_repo(path: Path) -> None:
-    subprocess.run(["git", "init"], cwd=path, check=True, capture_output=True, text=True)
+    subprocess.run(
+        ["git", "init"], cwd=path, check=True, capture_output=True, text=True
+    )
     subprocess.run(
         ["git", "config", "user.email", "test@test.com"],
-        cwd=path, check=True, capture_output=True, text=True,
+        cwd=path,
+        check=True,
+        capture_output=True,
+        text=True,
     )
     subprocess.run(
         ["git", "config", "user.name", "Test"],
-        cwd=path, check=True, capture_output=True, text=True,
+        cwd=path,
+        check=True,
+        capture_output=True,
+        text=True,
     )
 
 
@@ -38,18 +46,37 @@ def _make_commit(path: Path, message: str, filename: str = "file.txt") -> None:
     global _commit_counter
     _commit_counter += 1
     (path / filename).write_text(f"content {_commit_counter}\n")
-    subprocess.run(["git", "add", filename], cwd=path, check=True, capture_output=True, text=True)
     subprocess.run(
-        ["git", "-c", "user.name=Test User", "-c", "user.email=test@test.com", "commit", "-m", message, "-m", f"Commit body {_commit_counter}"],
-        cwd=path, check=True, capture_output=True, text=True,
+        ["git", "add", filename], cwd=path, check=True, capture_output=True, text=True
+    )
+    subprocess.run(
+        [
+            "git",
+            "-c",
+            "user.name=Test User",
+            "-c",
+            "user.email=test@test.com",
+            "commit",
+            "-m",
+            message,
+            "-m",
+            f"Commit body {_commit_counter}",
+        ],
+        cwd=path,
+        check=True,
+        capture_output=True,
+        text=True,
     )
 
 
 def _make_tag(path: Path, tag: str) -> None:
-    subprocess.run(["git", "tag", tag], cwd=path, check=True, capture_output=True, text=True)
+    subprocess.run(
+        ["git", "tag", tag], cwd=path, check=True, capture_output=True, text=True
+    )
 
 
 # --- _run_git ---
+
 
 def test_run_git_raises_on_failure(tmp_path: Path) -> None:
     _init_repo(tmp_path)
@@ -69,6 +96,7 @@ def test_run_git_returns_output(tmp_path: Path) -> None:
 
 # --- get_repo_root ---
 
+
 def test_get_repo_root_in_repo(tmp_path: Path) -> None:
     _init_repo(tmp_path)
     root = get_repo_root(str(tmp_path))
@@ -84,6 +112,7 @@ def test_get_repo_root_outside_repo(tmp_path: Path) -> None:
 
 # --- has_head ---
 
+
 def test_has_head_empty_repo(tmp_path: Path) -> None:
     _init_repo(tmp_path)
     assert has_head(str(tmp_path)) is False
@@ -96,6 +125,7 @@ def test_has_head_with_commit(tmp_path: Path) -> None:
 
 
 # --- is_clean ---
+
 
 def test_is_clean_true(tmp_path: Path) -> None:
     _init_repo(tmp_path)
@@ -112,6 +142,7 @@ def test_is_clean_false_with_untracked(tmp_path: Path) -> None:
 
 # --- get_latest_tag ---
 
+
 def test_get_latest_tag_with_tag(tmp_path: Path) -> None:
     _init_repo(tmp_path)
     _make_commit(tmp_path, "feat: first")
@@ -126,6 +157,7 @@ def test_get_latest_tag_no_tags(tmp_path: Path) -> None:
 
 
 # --- get_previous_tag ---
+
 
 def test_get_previous_tag(tmp_path: Path) -> None:
     _init_repo(tmp_path)
@@ -147,6 +179,7 @@ def test_get_previous_tag_no_previous(tmp_path: Path) -> None:
 
 # --- get_current_ref / get_short_ref ---
 
+
 def test_get_current_ref(tmp_path: Path) -> None:
     _init_repo(tmp_path)
     _make_commit(tmp_path, "feat: initial")
@@ -162,6 +195,7 @@ def test_get_short_ref(tmp_path: Path) -> None:
 
 
 # --- get_log ---
+
 
 def test_get_log_full(tmp_path: Path) -> None:
     _init_repo(tmp_path)
@@ -205,12 +239,29 @@ def test_get_log_to_ref_only(tmp_path: Path) -> None:
 def test_get_log_body_and_references(tmp_path: Path) -> None:
     _init_repo(tmp_path)
     (tmp_path / "file.txt").write_text("content")
-    subprocess.run(["git", "add", "file.txt"], cwd=tmp_path, check=True, capture_output=True, text=True)
+    subprocess.run(
+        ["git", "add", "file.txt"],
+        cwd=tmp_path,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
     # Commit with body containing a BREAKING CHANGE and issue ref
     subprocess.run(
-        ["git", "-c", "user.name=Test User", "-c", "user.email=test@test.com",
-         "commit", "-m", "feat(api)!: new endpoint\n\nBREAKING CHANGE: removed old\n\nFixes #42"],
-        cwd=tmp_path, check=True, capture_output=True, text=True,
+        [
+            "git",
+            "-c",
+            "user.name=Test User",
+            "-c",
+            "user.email=test@test.com",
+            "commit",
+            "-m",
+            "feat(api)!: new endpoint\n\nBREAKING CHANGE: removed old\n\nFixes #42",
+        ],
+        cwd=tmp_path,
+        check=True,
+        capture_output=True,
+        text=True,
     )
     commits = get_log(str(tmp_path), None, None)
     assert len(commits) == 1
@@ -218,6 +269,7 @@ def test_get_log_body_and_references(tmp_path: Path) -> None:
 
 
 # --- get_default_branch ---
+
 
 def test_get_default_branch_no_remote(tmp_path: Path) -> None:
     _init_repo(tmp_path)

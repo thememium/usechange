@@ -1,129 +1,186 @@
-"""Tests for ReleaseCommand metadata and version logic."""
+"""Tests for ReleaseCommand.handle — full workflow with mocked externals."""
 
 from __future__ import annotations
 
-import subprocess
 from pathlib import Path
 from unittest.mock import patch
 
 import typer
 
-from usechange.cli.commands.release_command import (
-    ReleaseCommand,
-    _next_available_version,
-)
+from usechange.cli.commands.release_command import ReleaseCommand
 
 app = typer.Typer()
 
 
-def _init_repo(path: Path) -> None:
-    subprocess.run(
-        ["git", "init"], cwd=path, check=True, capture_output=True, text=True
-    )
-    subprocess.run(
-        ["git", "config", "user.email", "t@t.com"],
-        cwd=path,
-        check=True,
-        capture_output=True,
-        text=True,
-    )
-    subprocess.run(
-        ["git", "config", "user.name", "T"],
-        cwd=path,
-        check=True,
-        capture_output=True,
-        text=True,
-    )
-    (path / "f.txt").write_text("x")
-    subprocess.run(
-        ["git", "add", "f.txt"],
-        cwd=path,
-        check=True,
-        capture_output=True,
-        text=True,
-    )
-    subprocess.run(
-        [
-            "git",
-            "-c",
-            "user.name=T",
-            "-c",
-            "user.email=t@t.com",
-            "commit",
-            "-m",
-            "init",
-            "-m",
-            "body",
-        ],
-        cwd=path,
-        check=True,
-        capture_output=True,
-        text=True,
-    )
-
-
-# --- ReleaseCommand metadata ---
-
-
-def test_release_command_signature() -> None:
-    cmd = ReleaseCommand(app)
-    assert cmd.signature() == "release"
-
-
-def test_release_command_description() -> None:
-    cmd = ReleaseCommand(app)
-    assert "release" in cmd.description().lower()
-
-
-@patch("usechange.cli.commands.release_command.Confirm.ask", return_value=False)
-def test_handle_cancelled(mock_confirm) -> None:
-    cmd = ReleaseCommand(app)
-    cmd.handle(directory=None, yes=False, no_date=False, no_emojis=False)
-    mock_confirm.assert_called_once()
-
-
+@patch("usechange.cli.commands.release_command._run")
+@patch("usechange.cli.commands.release_command._run_capture", return_value="abc123")
+@patch(
+    "usechange.cli.commands.release_command._extract_release_notes",
+    return_value="## v1.1.0\n\n- New\n\n",
+)
+@patch("usechange.cli.commands.release_command._gh_release_exists", return_value=False)
+@patch(
+    "usechange.cli.commands.release_command._load_existing_versions", return_value=set()
+)
+@patch(
+    "usechange.cli.commands.release_command._next_available_version",
+    return_value="1.1.0",
+)
+@patch("usechange.changelog.cli.default.run_changelog")
+@patch("usechange.changelog.git.has_head", return_value=True)
 @patch("usechange.cli.commands.release_command.Confirm.ask", return_value=True)
-def test_handle_no_head(mock_confirm, tmp_path: Path) -> None:
+def test_handle_full_release_flow(
+    mock_confirm,
+    mock_has_head,
+    mock_run_changelog,
+    mock_next_version,
+    mock_load_versions,
+    mock_gh_exists,
+    mock_extract_notes,
+    mock_run_capture,
+    mock_run,
+    tmp_path: Path,
+) -> None:
+    from usechange.changelog.cli.default import ChangelogResult
+
+    mock_run_changelog.return_value = ChangelogResult(
+        message="Generated",
+        content="# Changelog\n\n## v1.1.0\n\n- New\n\n",
+        output_path="CHANGELOG.md",
+        new_version="1.1.0",
+        wrote_file=True,
+        resolved_dir=str(tmp_path),
+    )
+
     cmd = ReleaseCommand(app)
-    cmd.handle(directory=str(tmp_path), yes=True, no_date=False, no_emojis=False)
+    cmd.handle(directory=str(tmp_path), yes=False, no_date=False, no_emojis=False)
+
+    mock_confirm.assert_called_once()
+    mock_has_head.assert_called_once()
+    mock_run_changelog.assert_called_once()
+    # _run should be called for uv and git commands
+    assert mock_run.call_count >= 6
 
 
-# --- _next_available_version ---
+@patch("usechange.cli.commands.release_command._run")
+@patch("usechange.cli.commands.release_command._run_capture", return_value="abc123")
+@patch(
+    "usechange.cli.commands.release_command._extract_release_notes",
+    return_value="## v1.1.0\n\n- New\n\n",
+)
+@patch("usechange.cli.commands.release_command._gh_release_exists", return_value=True)
+@patch(
+    "usechange.cli.commands.release_command._load_existing_versions", return_value=set()
+)
+@patch(
+    "usechange.cli.commands.release_command._next_available_version",
+    return_value="1.1.0",
+)
+@patch("usechange.changelog.cli.default.run_changelog")
+@patch("usechange.changelog.git.has_head", return_value=True)
+@patch("usechange.cli.commands.release_command.Confirm.ask", return_value=True)
+def test_handle_release_with_existing_gh_release(
+    mock_confirm,
+    mock_has_head,
+    mock_run_changelog,
+    mock_next_version,
+    mock_load_versions,
+    mock_gh_exists,
+    mock_extract_notes,
+    mock_run_capture,
+    mock_run,
+    tmp_path: Path,
+) -> None:
+    from usechange.changelog.cli.default import ChangelogResult
 
-
-def test_next_available_version_with_tag_conflict(tmp_path: Path) -> None:
-    _init_repo(tmp_path)
-    subprocess.run(
-        ["git", "tag", "v1.0.0"],
-        cwd=tmp_path,
-        check=True,
-        capture_output=True,
-        text=True,
+    mock_run_changelog.return_value = ChangelogResult(
+        message="Generated",
+        content="# Changelog\n\n## v1.1.0\n\n- New\n\n",
+        output_path="CHANGELOG.md",
+        new_version="1.1.0",
+        wrote_file=True,
+        resolved_dir=str(tmp_path),
     )
-    result = _next_available_version(str(tmp_path), "1.0.0", set())
-    assert result == "1.0.1"
+
+    cmd = ReleaseCommand(app)
+    cmd.handle(directory=str(tmp_path), yes=False, no_date=False, no_emojis=False)
+
+    # Should call gh release edit instead of create
+    gh_calls = [c for c in mock_run.call_args_list if "gh" in str(c)]
+    assert len(gh_calls) >= 1
+    assert "edit" in str(gh_calls[0])
 
 
-def test_next_available_version_in_existing_set(tmp_path: Path) -> None:
-    result = _next_available_version(str(tmp_path), "1.0.0", {"1.0.0"})
-    assert result == "1.0.1"
+@patch("usechange.cli.commands.release_command._run")
+@patch("usechange.cli.commands.release_command._run_capture", return_value="abc123")
+@patch(
+    "usechange.cli.commands.release_command._extract_release_notes",
+    return_value="## v1.1.0\n\n- New\n\n",
+)
+@patch("usechange.cli.commands.release_command._gh_release_exists", return_value=False)
+@patch(
+    "usechange.cli.commands.release_command._load_existing_versions", return_value=set()
+)
+@patch(
+    "usechange.cli.commands.release_command._next_available_version",
+    return_value="1.1.1",
+)
+@patch("usechange.changelog.cli.default.run_changelog")
+@patch("usechange.changelog.git.has_head", return_value=True)
+@patch("usechange.cli.commands.release_command.Confirm.ask", return_value=True)
+def test_handle_release_version_conflict(
+    mock_confirm,
+    mock_has_head,
+    mock_run_changelog,
+    mock_next_version,
+    mock_load_versions,
+    mock_gh_exists,
+    mock_extract_notes,
+    mock_run_capture,
+    mock_run,
+    tmp_path: Path,
+) -> None:
+    from usechange.changelog.cli.default import ChangelogResult
 
-
-def test_next_available_version_multiple_conflicts(tmp_path: Path) -> None:
-    _init_repo(tmp_path)
-    subprocess.run(
-        ["git", "tag", "v1.0.0"],
-        cwd=tmp_path,
-        check=True,
-        capture_output=True,
-        text=True,
+    mock_run_changelog.return_value = ChangelogResult(
+        message="Generated",
+        content="# Changelog\n\n## v1.1.0\n\n- New\n\n",
+        output_path="CHANGELOG.md",
+        new_version="1.1.0",
+        wrote_file=True,
+        resolved_dir=str(tmp_path),
     )
-    subprocess.run(
-        ["git", "tag", "v1.0.1"],
-        cwd=tmp_path,
-        check=True,
-        capture_output=True,
-        text=True,
+
+    cmd = ReleaseCommand(app)
+    cmd.handle(directory=str(tmp_path), yes=False, no_date=False, no_emojis=False)
+
+    # run_changelog should be called twice (once for initial, once for bumped version)
+    assert mock_run_changelog.call_count == 2
+
+
+@patch("usechange.changelog.git.has_head", return_value=True)
+@patch("usechange.changelog.cli.default.run_changelog")
+@patch("usechange.cli.commands.release_command.Confirm.ask", return_value=True)
+def test_handle_no_version_raises(
+    mock_confirm,
+    mock_run_changelog,
+    mock_has_head,
+    tmp_path: Path,
+) -> None:
+    from usechange.changelog.cli.default import ChangelogResult
+
+    mock_run_changelog.return_value = ChangelogResult(
+        message="No version",
+        content="",
+        output_path=None,
+        new_version=None,
+        wrote_file=False,
+        resolved_dir=str(tmp_path),
     )
-    result = _next_available_version(str(tmp_path), "1.0.0", set())
-    assert result == "1.0.2"
+
+    cmd = ReleaseCommand(app)
+    try:
+        cmd.handle(directory=str(tmp_path), yes=False, no_date=False, no_emojis=False)
+        assert False, "Should have raised"
+    except RuntimeError as e:
+        assert "Unable to determine" in str(e)

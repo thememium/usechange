@@ -1,16 +1,24 @@
 # Changelog
 
-## v0.1.45 (2026-08-01)
+## v0.1.46 (2026-08-03)
+
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.45...v0.1.46)
+
+### 🏡 Chore
+
+- **deps**: bump usecli to 0.1.77 ([b1f6e59](https://github.com/thememium/usechange/commit/b1f6e59156e3e0d9b14d7c4ffe8ee0c03b4ccb4c))
+
+### Contributors
+
+- Edward Boswell <thememium@gmail.com>
+
+## v0.1.45 (2026-08-03)
 
 [Compare changes](https://github.com/thememium/usechange/compare/v0.1.44...v0.1.45)
 
 ### 🏡 Chore
 
-- **pyproject.toml**: update deptry script to use uv run ([60417da](https://github.com/thememium/usechange/commit/60417da2b89c4eaf87c453f32de4841ec18180aa))
-
-### ✅ Tests
-
-- improve test coverage (#1) (#1) ([584c0a3](https://github.com/thememium/usechange/commit/584c0a3f428415010d2bdcfcab0a45a1bd68990e))
+- **deps**: bump usecli to 0.1.77 ([b1f6e59](https://github.com/thememium/usechange/commit/b1f6e59156e3e0d9b14d7c4ffe8ee0c03b4ccb4c))
 
 ### Contributors
 

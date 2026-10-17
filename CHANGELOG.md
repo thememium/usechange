@@ -1,12 +1,24 @@
 # Changelog
 
-## v0.1.46 (2026-08-03)
+## v0.1.47 (2026-10-17)
+
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.46...v0.1.47)
+
+### 🏡 Chore
+
+- **pyproject.toml**: bump usecli to 0.1.80 ([e091314](https://github.com/thememium/usechange/commit/e091314d46ca30c65ebccb6177ff0fb0d24c6e28))
+
+### Contributors
+
+- Edward Boswell <thememium@gmail.com>
+
+## v0.1.46 (2026-10-17)
 
 [Compare changes](https://github.com/thememium/usechange/compare/v0.1.45...v0.1.46)
 
 ### 🏡 Chore
 
-- **deps**: bump usecli to 0.1.77 ([b1f6e59](https://github.com/thememium/usechange/commit/b1f6e59156e3e0d9b14d7c4ffe8ee0c03b4ccb4c))
+- **pyproject.toml**: bump usecli to 0.1.80 ([e091314](https://github.com/thememium/usechange/commit/e091314d46ca30c65ebccb6177ff0fb0d24c6e28))
 
 ### Contributors
 

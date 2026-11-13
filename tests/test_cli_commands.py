@@ -2,10 +2,17 @@
 
 from __future__ import annotations
 
+import sys
+from pathlib import Path
 from unittest.mock import patch
 
 import typer
 
+from usechange.cli.commands import (
+    changelog_command,
+    github_release_command,
+    release_command,
+)
 from usechange.cli.commands.changelog_command import ChangelogCommand
 from usechange.cli.commands.github_release_command import GithubReleaseCommand
 
@@ -249,3 +256,20 @@ def test_github_release_command_handle(mock_run) -> None:
     cmd = GithubReleaseCommand(app)
     cmd.handle(versions=None, directory=None, token=None)
     mock_run.assert_called_once()
+
+
+# --- _ensure_src_on_path ---
+
+
+def test_ensure_src_on_path_inserts_missing_root() -> None:
+    modules = (changelog_command, github_release_command, release_command)
+    original = list(sys.path)
+    try:
+        for module in modules:
+            root = str(Path(module.__file__).resolve().parents[3])
+            while root in sys.path:
+                sys.path.remove(root)
+            module._ensure_src_on_path()
+            assert sys.path[0] == root
+    finally:
+        sys.path[:] = original

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import subprocess
 from pathlib import Path
+from unittest.mock import patch
 
 from usechange.changelog.git import (
     _run_git,
@@ -268,12 +269,28 @@ def test_get_log_body_and_references(tmp_path: Path) -> None:
     assert "BREAKING CHANGE" in commits[0].body
 
 
+def test_get_log_skips_malformed_entries() -> None:
+    with patch(
+        "usechange.changelog.git._run_git",
+        return_value="sha\x1fname\x1femail",
+    ):
+        assert get_log("/unused", None, None) == []
+
+
 # --- get_default_branch ---
 
 
 def test_get_default_branch_no_remote(tmp_path: Path) -> None:
     _init_repo(tmp_path)
     assert get_default_branch(str(tmp_path)) is None
+
+
+def test_get_default_branch_unexpected_ref() -> None:
+    with patch(
+        "usechange.changelog.git._run_git",
+        return_value="refs/heads/main",
+    ):
+        assert get_default_branch("/unused") is None
 
 
 def test_get_default_branch_with_remote(tmp_path: Path) -> None:
@@ -294,19 +311,25 @@ def test_get_default_branch_with_remote(tmp_path: Path) -> None:
         capture_output=True,
         text=True,
     )
+    branch = subprocess.run(
+        ["git", "branch", "--show-current"],
+        cwd=tmp_path,
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout.strip()
     subprocess.run(
-        ["git", "push", "-u", "origin", "master"],
+        ["git", "push", "-u", "origin", branch],
         cwd=tmp_path,
         check=True,
         capture_output=True,
         text=True,
     )
     subprocess.run(
-        ["git", "remote", "set-head", "origin", "master"],
+        ["git", "remote", "set-head", "origin", branch],
         cwd=tmp_path,
         check=True,
         capture_output=True,
         text=True,
     )
-    branch = get_default_branch(str(tmp_path))
-    assert branch == "master"
+    assert get_default_branch(str(tmp_path)) == branch

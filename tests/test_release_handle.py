@@ -158,6 +158,31 @@ def test_handle_release_version_conflict(
     assert mock_run_changelog.call_count == 2
 
 
+@patch("usechange.cli.commands.release_command.console")
+@patch("usechange.cli.commands.release_command.Confirm.ask", return_value=False)
+def test_handle_cancel(mock_confirm, mock_console, tmp_path: Path) -> None:
+    cmd = ReleaseCommand(app)
+    cmd.handle(directory=str(tmp_path), yes=False, no_date=False, no_emojis=False)
+
+    mock_console.print.assert_called_once_with("Release cancelled.")
+
+
+@patch("usechange.cli.commands.release_command.print_error")
+@patch("usechange.changelog.git.has_head", return_value=False)
+@patch("usechange.cli.commands.release_command.Confirm.ask", return_value=True)
+def test_handle_no_commits(
+    mock_confirm,
+    mock_has_head,
+    mock_print_error,
+    tmp_path: Path,
+) -> None:
+    cmd = ReleaseCommand(app)
+    cmd.handle(directory=str(tmp_path), yes=False, no_date=False, no_emojis=False)
+
+    mock_print_error.assert_called_once()
+    assert "no commits" in mock_print_error.call_args.args[0]
+
+
 @patch("usechange.changelog.git.has_head", return_value=True)
 @patch("usechange.changelog.cli.default.run_changelog")
 @patch("usechange.cli.commands.release_command.Confirm.ask", return_value=True)

@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.1.48 (2026-11-13)
+
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.47...v0.1.48)
+
+### 🩹 Fixes
+
+- usecli version bump and improved tests (#2) (#2) ([44df1c8](https://github.com/thememium/usechange/commit/44df1c8943cf398ec1966ce177a9ab16e4d7704c))
+
+### Contributors
+
+- Edward Boswell <thememium@gmail.com>
+
 ## v0.1.47 (2026-10-17)
 
 [Compare changes](https://github.com/thememium/usechange/compare/v0.1.46...v0.1.47)

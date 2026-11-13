@@ -6,6 +6,8 @@ import subprocess
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
+import pytest
+
 from usechange.cli.commands.release_command import (
     _extract_release_notes,
     _gh_release_exists,
@@ -238,3 +240,14 @@ def test_next_available_version_all_conflict_raises(tmp_path: Path) -> None:
     # When existing_versions contains the version but no tag exists
     result = _next_available_version(str(tmp_path), "1.0.0", {"1.0.0"})
     assert result == "1.0.1"
+
+
+@patch("usechange.changelog.semver.bump_version", return_value="1.0.0")
+def test_next_available_version_unbumpable_raises(
+    mock_bump: MagicMock, tmp_path: Path
+) -> None:
+    subprocess.run(
+        ["git", "init"], cwd=tmp_path, check=True, capture_output=True, text=True
+    )
+    with pytest.raises(RuntimeError, match="Unable to auto-bump"):
+        _next_available_version(str(tmp_path), "1.0.0", {"1.0.0"})

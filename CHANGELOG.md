@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.1.49 (2026-11-15)
+
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.48...v0.1.49)
+
+### 🩹 Fixes
+
+- changelog double pr (#3) ([05c0c4a](https://github.com/thememium/usechange/commit/05c0c4a3cb218889e421b95ee7e52a8433c917a1))
+
+### Contributors
+
+- Edward Boswell <thememium@gmail.com>
+
 ## v0.1.48 (2026-11-13)
 
 [Compare changes](https://github.com/thememium/usechange/compare/v0.1.47...v0.1.48)

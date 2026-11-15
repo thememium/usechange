@@ -285,6 +285,22 @@ def test_group_commits_with_scope_and_refs() -> None:
     assert "a123456" in item
 
 
+def test_commit_with_pr_in_subject_not_duplicated() -> None:
+    info = RepoInfo(domain="github.com", repo="user/repo", provider="github")
+    commit = GitCommit(
+        sha="eb294543c207828718bfe5d527139cdd67b4b5a1",
+        subject="add delete files tool (#12)",
+        body="",
+        author_name="Dev",
+        author_email="dev@test.com",
+    )
+    parsed = _parse_commit(commit)
+    assert parsed is not None
+    assert parsed.references == ["#12"]
+    item = _format_commit(parsed, info)
+    assert item.count("#12") == 1
+
+
 def test_group_commits_without_repo_info() -> None:
     types = default_types()
     commits = [

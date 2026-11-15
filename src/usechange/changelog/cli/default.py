@@ -204,9 +204,11 @@ def _parse_commit(commit: git.GitCommit) -> ParsedCommit | None:
     if _BREAKING_RE.search(commit.body):
         breaking = True
 
-    references = []
-    for ref in _REF_RE.findall(f"{commit.subject}\n{commit.body}"):
-        references.append(f"#{ref}")
+    references = list(
+        dict.fromkeys(
+            f"#{ref}" for ref in _REF_RE.findall(f"{commit.subject}\n{commit.body}")
+        )
+    )
 
     return ParsedCommit(
         sha=commit.sha,
@@ -267,9 +269,15 @@ def _strip_emoji_from_types(
 def _format_commit(commit: ParsedCommit, repo_info: RepoInfo | None) -> str:
     scope = f"**{commit.scope}**: " if commit.scope else ""
     line = f"{scope}{commit.subject}"
-    if commit.references:
-        refs = ", ".join(commit.references)
-        line = f"{line} ({refs})"
+    # Squash-merge subjects already end with the PR reference ("fix x (#12)");
+    # only append references the subject does not mention yet.
+    missing_refs = [
+        ref
+        for ref in commit.references
+        if not re.search(rf"{re.escape(ref)}(?!\d)", line)
+    ]
+    if missing_refs:
+        line = f"{line} ({', '.join(missing_refs)})"
     url = commit_url(repo_info, commit.sha)
     if url:
         line = f"{line} ([{commit.short_sha}]({url}))"

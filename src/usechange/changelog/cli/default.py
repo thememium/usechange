@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 import re
 from dataclasses import dataclass, replace
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 from usechange.changelog import git
@@ -136,7 +136,7 @@ def run_changelog(options: ChangelogOptions) -> ChangelogResult:
         compare_link = compare_url(repo_info, compare_from_ref, compare_to_ref)
     date = None
     if options.include_date:
-        date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+        date = datetime.now(UTC).strftime("%Y-%m-%d")
     notes = ReleaseNotes(
         version=f"v{version}",
         date=date,
@@ -392,7 +392,7 @@ def _resolve_version_suffix(directory: str, options: ChangelogOptions) -> str | 
 
 def _timestamp_suffix(directory: str) -> str:
     short_ref = git.get_short_ref(directory)
-    return datetime.now(timezone.utc).strftime("%y%m%d-%H%M%S-") + short_ref
+    return datetime.now(UTC).strftime("%y%m%d-%H%M%S-") + short_ref
 
 
 def _read_current_version(directory: str) -> str | None:

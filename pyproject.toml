@@ -4,13 +4,13 @@ version = "0.1.49"
 description = "Generate Beautiful Changelogs using Conventional Commits"
 readme = "README.md"
 authors = [{ name = "Edward Boswell", email = "thememium@gmail.com" }]
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 classifiers = [
   "Programming Language :: Python :: 3",
   "Operating System :: OS Independent",
   "Intended Audience :: Developers",
 ]
-dependencies = ["tomli>=2.5.0", "usecli>=0.1.82"]
+dependencies = ["tomli>=2.5.0", "usecli>=0.2.5"]
 license = "MIT"
 license-files = ["LICEN[CS]E*"]
 

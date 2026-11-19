@@ -1,5 +1,29 @@
 # Changelog
 
+## v0.1.50 (2026-11-19)
+
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.49...v0.1.50)
+
+### 💅 Refactors
+
+- **usecli**: reorganize usecli config TOML ([e27431f](https://github.com/thememium/usechange/commit/e27431f44894ef152e80cfaaa7f8aa81e7f3e53b))
+- **changelog/config.py**: replace tomli with tomllib ([16f6a94](https://github.com/thememium/usechange/commit/16f6a9471fc2540154c30884748563109b1532a8))
+- **changelog**: use UTC class for datetime instead of timezone.utc ([cdc1ee8](https://github.com/thememium/usechange/commit/cdc1ee8cad302de0ca312f09a73439bf5c957e0c))
+
+### 🏡 Chore
+
+- **deps**: bump usecli to 0.2.6 ([aab9d98](https://github.com/thememium/usechange/commit/aab9d9814b15cf0ad104e33b2179aaa886053979))
+- **pyproject.toml**: remove tomli dependency ([24e3e62](https://github.com/thememium/usechange/commit/24e3e62460896405876cb80badbe2ad36966c363))
+- **python**: bump required Python and usecli dependencies ([85c1bc4](https://github.com/thememium/usechange/commit/85c1bc49186638d32fb7f0c62d5bc255bb407b08))
+
+### 🤖 CI
+
+- **workflow**: bump Python version to 3.11 and simplify version extraction ([ac9db4c](https://github.com/thememium/usechange/commit/ac9db4ca0b77553fdd09cc40d1d029464bd24c01))
+
+### Contributors
+
+- Edward Boswell <thememium@gmail.com>
+
 ## v0.1.49 (2026-11-15)
 
 [Compare changes](https://github.com/thememium/usechange/compare/v0.1.48...v0.1.49)

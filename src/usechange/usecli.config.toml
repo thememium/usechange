@@ -1,14 +1,44 @@
+# Runtime configuration for usecli.
+# Paths are relative to this file.
+
 [usecli]
 command_name = "usechange"
 title = "useChange"
-title_file = "cli/themes/title.txt"
-title_font = "ansi_shadow"
 description = "Generate Beautiful Changelogs using Conventional Commits"
-commands_dir = "cli/commands"
-templates_dir = "cli/templates"
-themes_dir = "cli/themes"
-theme = "default"
-hide_init = true
-hide_inspire = true
-hide_make_command = true
-hide_make_theme = true
+
+[usecli.paths]
+commands = "cli/commands"
+templates = "cli/templates"
+# One directory or a list of directories; the first is where `make:theme`
+# writes new themes.
+themes = ["cli/themes"]
+
+[usecli.theme]
+# Theme TOML file to load, by name or path.
+name = "default"
+
+[usecli.banner]
+# Optional: a text file whose contents replace the rendered title.
+# Relative paths resolve against the project root.
+file = "cli/themes/title.txt"
+# Optional: a figlet font for the title (requires the `figlet` extra).
+# font = "ansi_shadow"
+top_space = true
+bottom_space = true
+# Whether the version and description follow the title.
+show_version = false
+show_description = false
+
+[usecli.commands]
+# Built-in commands to leave unregistered, for example ["inspire"].
+hidden = ["init", "inspire", "make:command", "make:theme"]
+
+[usecli.upgrade]
+enabled = true
+# Where upgrades come from: "auto" (detect from install metadata), "pypi", or "git".
+source = "auto"
+# Git only: repository URL. Falls back to the URL in the install metadata.
+# url = "https://github.com/owner/repo.git"
+# Optional: distribution name and Git ref (branch, tag, or commit) overrides.
+# package = "my-cli"
+# ref = "main"

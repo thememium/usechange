@@ -33,7 +33,9 @@ class ReleaseCommand(BaseCommand):
         from usechange.changelog import git
         from usechange.changelog.cli.default import ChangelogOptions, run_changelog
 
-        if not yes and not Confirm.ask("Continue with release?", default=False, single_key=True):
+        if not yes and not Confirm.ask(
+            "Continue with release?", default=False, single_key=True
+        ):
             console.print("Release cancelled.")
             return
 

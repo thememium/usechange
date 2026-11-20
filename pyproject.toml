@@ -10,7 +10,7 @@ classifiers = [
   "Operating System :: OS Independent",
   "Intended Audience :: Developers",
 ]
-dependencies = ["usecli>=0.2.6"]
+dependencies = ["usecli>=0.2.7"]
 license = "MIT"
 license-files = ["LICEN[CS]E*"]
 

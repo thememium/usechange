@@ -1,5 +1,25 @@
 # Changelog
 
+## v0.1.51 (2026-11-20)
+
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.50...v0.1.51)
+
+### 💅 Refactors
+
+- **usechange:cli:release**: use single key confirm for release ([7d14640](https://github.com/thememium/usechange/commit/7d14640dfd7dd639dd87ab791dbc97de0ae906a2))
+
+### 🏡 Chore
+
+- **deps**: bump usecli to 0.2.7 ([a3035f5](https://github.com/thememium/usechange/commit/a3035f5b727bcde4562a27d1dcd53751f2625832))
+
+### 🎨 Styles
+
+- **release_command.py**: split Confirm.ask call into multiple lines ([e2ae0dd](https://github.com/thememium/usechange/commit/e2ae0dd58de06db629e74f3d62a6d7863a56767a))
+
+### Contributors
+
+- Edward Boswell <thememium@gmail.com>
+
 ## v0.1.50 (2026-11-19)
 
 [Compare changes](https://github.com/thememium/usechange/compare/v0.1.49...v0.1.50)

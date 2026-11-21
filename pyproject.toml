@@ -10,7 +10,7 @@ classifiers = [
   "Operating System :: OS Independent",
   "Intended Audience :: Developers",
 ]
-dependencies = ["pytest-xdist[psutil]>=3.8.0", "usecli>=0.2.8"]
+dependencies = ["usecli>=0.2.8"]
 license = "MIT"
 license-files = ["LICEN[CS]E*"]
 
@@ -37,6 +37,7 @@ dev = [
   "poethepoet>=0.49.0",
   "pytest>=9.2.0",
   "pytest-cov>=7.1.0",
+  "pytest-xdist[psutil]>=3.8.0",
   "ruff>=0.17.5",
   "ty>=0.0.102",
 ]

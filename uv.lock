@@ -974,7 +974,6 @@ name = "usechange"
 version = "0.1.52"
 source = { editable = "." }
 dependencies = [
-    { name = "pytest-xdist", extra = ["psutil"] },
     { name = "usecli" },
 ]
 
@@ -985,15 +984,13 @@ dev = [
     { name = "poethepoet" },
     { name = "pytest" },
     { name = "pytest-cov" },
+    { name = "pytest-xdist", extra = ["psutil"] },
     { name = "ruff" },
     { name = "ty" },
 ]
 
 [package.metadata]
-requires-dist = [
-    { name = "pytest-xdist", extras = ["psutil"], specifier = ">=3.8.0" },
-    { name = "usecli", specifier = ">=0.2.8" },
-]
+requires-dist = [{ name = "usecli", specifier = ">=0.2.8" }]
 
 [package.metadata.requires-dev]
 dev = [
@@ -1002,6 +999,7 @@ dev = [
     { name = "poethepoet", specifier = ">=0.49.0" },
     { name = "pytest", specifier = ">=9.2.0" },
     { name = "pytest-cov", specifier = ">=7.1.0" },
+    { name = "pytest-xdist", extras = ["psutil"], specifier = ">=3.8.0" },
     { name = "ruff", specifier = ">=0.17.5" },
     { name = "ty", specifier = ">=0.0.102" },
 ]

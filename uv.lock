@@ -971,7 +971,7 @@ wheels = [
 
 [[package]]
 name = "usechange"
-version = "0.1.51"
+version = "0.1.52"
 source = { editable = "." }
 dependencies = [
     { name = "pytest-xdist", extra = ["psutil"] },

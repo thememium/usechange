@@ -1,5 +1,22 @@
 # Changelog
 
+## v0.1.52 (2026-11-21)
+
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.51...v0.1.52)
+
+### 🚀 Enhancements
+
+- **pyproject**: add pytest‑xdist and limit auto workers for tests ([cc30fc9](https://github.com/thememium/usechange/commit/cc30fc939e4b0025e6cc556fbc68f68465cd6e01))
+
+### 🏡 Chore
+
+- **pyproject.toml**: add dev-interactive task for interactive dev ([f0435bc](https://github.com/thememium/usechange/commit/f0435bcb9c7e9d0524046b02a827033f298098d1))
+- **deps**: bump usecli to 0.2.8 ([d81274f](https://github.com/thememium/usechange/commit/d81274f3f1140c917d0aee7bf46470a44e14b306))
+
+### Contributors
+
+- Edward Boswell <thememium@gmail.com>
+
 ## v0.1.51 (2026-11-20)
 
 [Compare changes](https://github.com/thememium/usechange/compare/v0.1.50...v0.1.51)

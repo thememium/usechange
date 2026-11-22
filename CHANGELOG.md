@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.1.54 (2026-11-22)
+
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.53...v0.1.54)
+
+### 🚀 Enhancements
+
+- add usecli skill markdown to skill directories ([21895f0](https://github.com/thememium/usechange/commit/21895f07b181924b9ea72b39743d679ceb21cac5))
+
+### 🏡 Chore
+
+- **deps**: bump usecli to 0.2.10 ([c2c1758](https://github.com/thememium/usechange/commit/c2c1758d39aa1e8f755cc886d378cc0a60395f80))
+
+### Contributors
+
+- Edward Boswell <thememium@gmail.com>
+
 ## v0.1.53 (2026-11-21)
 
 [Compare changes](https://github.com/thememium/usechange/compare/v0.1.52...v0.1.53)

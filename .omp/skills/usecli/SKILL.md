@@ -74,8 +74,7 @@ def handle(
     self,
     name: Annotated[str, Argument(help="Who to greet")],
     loud: Annotated[bool, Option("--loud", "-l", help="Uppercase")] = False,
-) -> None:
-    ...
+) -> None: ...
 ```
 
 ## Bundle a skill with this CLI

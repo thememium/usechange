@@ -1,5 +1,22 @@
 # Changelog
 
+## v0.1.55 (2026-11-27)
+
+[Compare changes](https://github.com/thememium/usechange/compare/v0.1.54...v0.1.55)
+
+### 📖 Documentation
+
+- **usecli**: adjust example syntax in SKILL.md files ([cf84bf8](https://github.com/thememium/usechange/commit/cf84bf86ad1f5bbd343faef3a91f3956b152ee3a))
+
+### 🏡 Chore
+
+- **deps**: bump usecli to 0.2.14 ([8721e2a](https://github.com/thememium/usechange/commit/8721e2a94fc79bfcc1397ae8fb1968a31c09ecdd))
+- **deps**: bump usecli, ruff, and ty versions ([d39a31e](https://github.com/thememium/usechange/commit/d39a31ee90ef1dee86eea47f421e6ca7709eac45))
+
+### Contributors
+
+- Edward Boswell <thememium@gmail.com>
+
 ## v0.1.54 (2026-11-22)
 
 [Compare changes](https://github.com/thememium/usechange/compare/v0.1.53...v0.1.54)

@@ -989,7 +989,7 @@ wheels = [
 
 [[package]]
 name = "usechange"
-version = "0.1.54"
+version = "0.1.55"
 source = { editable = "." }
 dependencies = [
     { name = "usecli" },
